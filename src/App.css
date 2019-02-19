@@ -36,6 +36,27 @@ h1.title {
     line-height: 66px;
 }
 
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    align-content: center;
+    justify-content: center;
+    width: fit-content;
+    align-items: center;
+    margin: 3vh auto 4vh auto;
+}
+
+.col-sm {
+    position: relative;
+    width: fit-content;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
 /*Game CSS*/
 
 
@@ -44,8 +65,27 @@ h1.title {
     display: flex;
 }
 
+.scorerValue {
+    color:#f9f6f2;
+    font-weight: bold;
+}
+
+.scorer{
+    margin:10px 10px;
+    height: 5vh;
+    width: 19vh;
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: 5px;	
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 3vh;
+}
+
 .dashboard{
-	position:relative;
+	/* position:relative; */
 	top:5%;
 	left:5vw;
 	width:40vw;
