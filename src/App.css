@@ -80,14 +80,13 @@ h1.title {
 	width:40vw;
 	height:40vw;
 	background: #bbada0;
-	border-radius:5px;
 }
 
 .cell{
 	height:25%;
 	width:25%;
 	background: #cdc1b4;
-	border-radius: 5px;
+    border-radius: 100px;
 }
 
 

@@ -11,6 +11,10 @@ export default class Numbers extends Component {
         var numberName = this.props.numberName,
             numberNamePrint = this.props.numberNamePrint;
 
+            if(numberNamePrint===0){
+                numberNamePrint="";
+            }
+
         return (
             <div className={numberName}>{numberNamePrint}</div>
         );
