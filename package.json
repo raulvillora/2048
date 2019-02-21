@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://raulvillora.github.io/2048",
   "dependencies": {
+    "arrow-keys-react": "^1.0.6",
     "bootstrap": "^4.3.1",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",

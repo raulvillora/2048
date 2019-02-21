@@ -6,17 +6,38 @@ import Dashboard from "./Dashboard";
 
 export default class Game extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            buttonClicked : false,
+            dashboard: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+            auxiliar_dashboard: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+            score: 0,
+        }
+        
+    }
+
+    startGame = () => {
+            this.setState({
+                dashboard: [[2, 0, 0, 0], [0, 2, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+                auxiliar_dashboard: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+                score: 2,
+            })
+        console.log("Starting the game again!!!")
+    }
     render = () => {
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-sm">
-                        <button type="button" className="btn btn-primary" style={{ margin: '10px 10px', fontFamily: "Avenir", fontSize: '2vh' }}>New Game</button>
+                        <button type="button" className="btn btn-primary" style={{ margin: '10px 10px', fontFamily: "Avenir", fontSize: '2vh' }} onClick={this.startGame}>
+                        New Game
+                        </button>
                     </div>
                     <div className="col-sm">
                         <div className="scorer">
                             <div className="scorerValue">
-                                0
+                                {this.state.score}
                             </div>
                         </div>
                     </div>
@@ -27,7 +48,7 @@ export default class Game extends Component {
                 </div>
 
                 <div className="gameContainer">
-                    <Dashboard/>
+                    <Dashboard dashboard={this.state.dashboard}/>
                 </div>
             </div>
         );

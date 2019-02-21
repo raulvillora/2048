@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
-import Draw from './Draw';
+import Numbers from './Numbers';
+import ArrowKeysReact from 'arrow-keys-react';
 
 export default class Dashboard extends Component {
     constructor(props) {
@@ -10,9 +11,36 @@ export default class Dashboard extends Component {
             n: "n",
             auxiliar_dashboard: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
             score: 0,
+            content: '',
         }
+
+        ArrowKeysReact.config({
+            left: () => {
+              this.setState({
+                content: 'left'
+              });
+            },
+            right: () => {
+              this.setState({
+                content: 'right'
+              });
+            },
+            up: () => {
+              this.setState({
+                content: 'up'
+              });
+            },
+            down: () => {
+              this.setState({
+                content: 'down'
+              });
+            }
+          });
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if(this.props.buttonClicked===true) this.updateDashboard();
+    }
     //Start a new Game
     startGame = () => {
         this.setState({
@@ -26,10 +54,15 @@ export default class Dashboard extends Component {
         // <Draw dashboard={this.props.dashboard}/>
     }
 
-    render = () => {
+    updateDashboard = () => {
+         this.setState({
+            dashboard : this.props.dashboard,
+        })
+        console.log("dashboard state is: " + this.state.dashboard);
+    }
 
-        
-        
+
+    render = () => {
 
         // function add() {
         //     let available = [];
@@ -49,7 +82,33 @@ export default class Dashboard extends Component {
         //     }
         // }
         return (
-            <Draw dashboard={this.props.dashboard}/>
+               
+            <table cellspacing="4" className="dashboard">
+            <tr>
+                <td className="cell"><div className="number">< Numbers numberName={this.state.n.concat(this.state.dashboard[0][0])} numberNamePrint={this.state.dashboard[0][0]}></Numbers></div></td>
+                <td className="cell"><div className="number">< Numbers numberName={this.state.n.concat(this.state.dashboard[0][1])} numberNamePrint={this.state.dashboard[0][1]}></Numbers></div></td>
+                <td className="cell"><div className="number">< Numbers numberName={this.state.n.concat(this.state.dashboard[0][2])} numberNamePrint={this.state.dashboard[0][2]}></Numbers></div></td>
+                <td className="cell"><div className="number">< Numbers numberName={this.state.n.concat(this.state.dashboard[0][3])} numberNamePrint={this.state.dashboard[0][3]}></Numbers></div></td>
+            </tr>
+            <tr>
+                <td className="cell"><div className="number">< Numbers numberName={this.state.n.concat(this.state.dashboard[1][0])} numberNamePrint={this.state.dashboard[1][0]}></Numbers></div></td>
+                <td className="cell"><div className="number">< Numbers numberName={this.state.n.concat(this.state.dashboard[1][1])} numberNamePrint={this.state.dashboard[1][1]}></Numbers></div></td>
+                <td className="cell"><div className="number">< Numbers numberName={this.state.n.concat(this.state.dashboard[1][2])} numberNamePrint={this.state.dashboard[1][2]}></Numbers></div></td>
+                <td className="cell"><div className="number">< Numbers numberName={this.state.n.concat(this.state.dashboard[1][3])} numberNamePrint={this.state.dashboard[1][3]}></Numbers></div></td>
+            </tr>
+            <tr>
+                <td className="cell"><div className="number">< Numbers numberName={this.state.n.concat(this.state.dashboard[2][0])} numberNamePrint={this.state.dashboard[2][0]}></Numbers></div></td>
+                <td className="cell"><div className="number">< Numbers numberName={this.state.n.concat(this.state.dashboard[2][1])} numberNamePrint={this.state.dashboard[2][1]}></Numbers></div></td>
+                <td className="cell"><div className="number">< Numbers numberName={this.state.n.concat(this.state.dashboard[2][2])} numberNamePrint={this.state.dashboard[2][2]}></Numbers></div></td>
+                <td className="cell"><div className="number">< Numbers numberName={this.state.n.concat(this.state.dashboard[2][3])} numberNamePrint={this.state.dashboard[2][3]}></Numbers></div></td>
+            </tr>
+            <tr>
+                <td className="cell"><div className="number">< Numbers numberName={this.state.n.concat(this.state.dashboard[3][0])} numberNamePrint={this.state.dashboard[3][0]}></Numbers></div></td>
+                <td className="cell"><div className="number">< Numbers numberName={this.state.n.concat(this.state.dashboard[3][1])} numberNamePrint={this.state.dashboard[3][1]}></Numbers></div></td>
+                <td className="cell"><div className="number">< Numbers numberName={this.state.n.concat(this.state.dashboard[3][2])} numberNamePrint={this.state.dashboard[3][2]}></Numbers></div></td>
+                <td className="cell"><div className="number">< Numbers numberName={this.state.n.concat(this.state.dashboard[3][3])} numberNamePrint={this.state.dashboard[3][3]}></Numbers></div></td>
+            </tr>
+        </table>
         );
     }
 }
