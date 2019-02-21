@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 export default class LandingPage extends Component {
     render = () => {
         return (
-            <div class="headingStyle">
+            <div className="headingStyle">
                 <Link to="/2048">
                     <h1>
                         <span>W</span>
