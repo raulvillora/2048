@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
 import Numbers from './Numbers';
-import ArrowKeysReact from 'arrow-keys-react';
 
 export default class Dashboard extends Component {
     constructor(props) {
@@ -14,28 +13,7 @@ export default class Dashboard extends Component {
             content: '',
         }
 
-        ArrowKeysReact.config({
-            left: () => {
-              this.setState({
-                content: 'left'
-              });
-            },
-            right: () => {
-              this.setState({
-                content: 'right'
-              });
-            },
-            up: () => {
-              this.setState({
-                content: 'up'
-              });
-            },
-            down: () => {
-              this.setState({
-                content: 'down'
-              });
-            }
-          });
+        
     }
 
     updateDashboard = () => {

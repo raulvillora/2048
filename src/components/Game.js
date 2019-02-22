@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import '../App.css';
 import Dashboard from "./Dashboard";
 
-
-
 export default class Game extends Component {
 
     constructor(props) {
@@ -11,30 +9,80 @@ export default class Game extends Component {
         this.state = {
             buttonClicked : false,
             dashboard: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
-            auxiliar_dashboard: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+            //auxiliar_dashboard: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
             score: 0,
-        }
-        
+            content: '',
+        };
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
+    componentDidMount() {
+        document.addEventListener('keydown', this.handleKeyPress);
+      }
+      componentWillUnmount() {
+        document.removeEventListener('keydown', this.handleKeyPress);
+      }
+
+    handleKeyPress ( event ) {
+        console.log("Arrow Pressed");
+        if(event.keyCode === 37){
+            console.log("left arrow")
+        }
+        if(event.keyCode === 38){
+            console.log("up arrow")
+        }
+        if(event.keyCode === 39){
+            console.log("rigth arrow")
+        }
+        if(event.keyCode === 40){
+            console.log("down arrow")
+        }
+        if ( event.key === "ArrowDown" ) {
+          console.log( "Down arrow" ); // does not fire
+        }
+        if ( event.key === "ArrowUp" ) {
+          console.log( "Uo arrow" ); // does fire
+        }
+        if ( event.key === "ArrowLeft" ) {
+            console.log( "Left arrow" ); // does fire
+          }
+          if ( event.key === "ArrowRigth" ) {
+            console.log( "Rigth arrow" ); // does fire
+          }
+    };
+
+    movingCells = () => {
+        switch(this.state.content) {
+
+        }
+
+    }
+
+    //Move all the non zero cells to one direction
+    moveTo = (row) => {
+        let arr = row.filter(val => val);
+        let missing = 4 - arr.length;
+        let zeros = Array(missing).fill(0);
+        arr = zeros.concat(arr);
+        return arr;
+    }
     //Restart the game
     restartGame = () => {
-
-        var aux = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+        var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
         var randomNumber = Math.random(1) > 0.1 ? 2 : 4;
         var randomNumber2 = Math.random(1) > 0.1 ? 2 : 4;
 
-        aux[Math.floor(Math.random()*aux.length)].splice(Math.floor(Math.random()*aux.length), 1, randomNumber);
-        aux[Math.floor(Math.random()*aux.length)].splice(Math.floor(Math.random()*aux.length), 1, randomNumber2);
+        auxiliar_dashboard[Math.floor(Math.random()*auxiliar_dashboard.length)].splice(Math.floor(Math.random()*auxiliar_dashboard.length), 1, randomNumber);
+        auxiliar_dashboard[Math.floor(Math.random()*auxiliar_dashboard.length)].splice(Math.floor(Math.random()*auxiliar_dashboard.length), 1, randomNumber2);
             this.setState({
-                dashboard: aux,
-                auxiliar_dashboard: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+                dashboard: auxiliar_dashboard,
                 score: 222,
             })
     }
 
-    
+
     render = () => {
+
         return (
             <div className="container">
                 <div className="row">
@@ -56,8 +104,8 @@ export default class Game extends Component {
                     </div>
                 </div>
 
-                <div className="gameContainer">
-                    <Dashboard dashboard={this.state.dashboard}/>
+                <div className="gameContainer" >
+                    <Dashboard dashboard={this.state.dashboard} />
                 </div>
             </div>
         );
