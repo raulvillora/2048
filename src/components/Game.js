@@ -47,26 +47,35 @@ export default class Game extends Component {
                 content: 'up',
                 dashboard: this.reverseDashboard(this.state.dashboard),
             })
+            this.afterPressedKey(this.state.dashboard);
         }
         if (event.key === "ArrowLeft") {
             this.setState({
-                content: 'left'
+                content: 'left',
+                dashboard: this.transposeDashboard(this.state.dashboard),
             })
+            this.afterPressedKey(this.state.dashboard);
         }
         if (event.key === "ArrowRigth") {
             this.setState({
-                content: 'rigth'
+                content: 'rigth',
+                dashboard: this.reverseDashboard(this.state.dashboard),
+            });
+
+            this.setState({
+                dashboard: this.transposeDashboard(this.state.dashboard),
             })
+            this.afterPressedKey(this.state.dashboard);
         }
-        this.movingCells();
+        //this.movingCells();
     };
 
-    movingCells = () => {
-        switch (this.state.content) {
+    // movingCells = () => {
+    //     switch (this.state.content) {
 
-        }
+    //     }
 
-    }
+    // }
 
     reverseDashboard = (dashboard) => {
         for (let i = 0; i < 4; i++) {
@@ -121,6 +130,42 @@ export default class Game extends Component {
             }
           }
           return row;
+    }
+
+    afterPressedKey = (dashboard) => {
+        var auxiliar_dashboard = this.makeCopy(this.state.dashboard);
+        for (let i = 0; i < 4; i++) dashboard[i] = this.nextMove(dashboard[i]);
+        if(this.comparingDashboards(auxiliar_dashboard,dashboard)) newNumber();
+
+    }
+
+    //newNumber
+    comparingDashboards = (dashboardA, dashboardB) => {
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+              if (dashboardA[i][j] !== dashboardB[i][j]) {
+                return true;
+              }
+            }
+          }
+          return false;
+    }
+
+    makeCopy = (dashboard) => {
+        var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+        for (let i = 0; i < 4; i++) {
+          for (let j = 0; j < 4; j++) {
+            auxiliar_dashboard[i][j] = dashboard[i][j];
+          }
+        }
+        return auxiliar_dashboard;
+    }
+
+    nextMove = (row) => {
+        row = this.moveTo(row);
+        row = this.combiningRows(row);
+        row = this.moveTo(row);
+        return row;
     }
 
     render = () => {
