@@ -7,7 +7,7 @@ export default class Game extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            buttonClicked : false,
+            buttonClicked: false,
             dashboard: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
             //auxiliar_dashboard: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
             score: 0,
@@ -17,45 +17,62 @@ export default class Game extends Component {
     }
 
     componentDidMount() {
+        this.restartGame();
         document.addEventListener('keydown', this.handleKeyPress);
-      }
-      componentWillUnmount() {
+    }
+    componentWillUnmount() {
         document.removeEventListener('keydown', this.handleKeyPress);
-      }
+    }
 
-    handleKeyPress ( event ) {
-        console.log("Arrow Pressed");
-        if(event.keyCode === 37){
-            console.log("left arrow")
+    handleKeyPress(event) {
+        // if(event.keyCode === 37){
+        //     console.log("left arrow 37")
+        // }
+        // if(event.keyCode === 38){
+        //     console.log("up arrow 38")
+        // }
+        // if(event.keyCode === 39){
+        //     console.log("rigth arrow 39")
+        // }
+        // if(event.keyCode === 40){
+        //     console.log("down arrow 40")
+        // }
+        if (event.key === "ArrowDown") {
+            this.setState({
+                content: 'down',
+            })
         }
-        if(event.keyCode === 38){
-            console.log("up arrow")
+        if (event.key === "ArrowUp") {
+            this.setState({
+                content: 'up',
+                dashboard: this.reverseDash(this.state.dashboard),
+            })
         }
-        if(event.keyCode === 39){
-            console.log("rigth arrow")
+        if (event.key === "ArrowLeft") {
+            this.setState({
+                content: 'left'
+            })
         }
-        if(event.keyCode === 40){
-            console.log("down arrow")
+        if (event.key === "ArrowRigth") {
+            this.setState({
+                content: 'rigth'
+            })
         }
-        if ( event.key === "ArrowDown" ) {
-          console.log( "Down arrow" ); // does not fire
-        }
-        if ( event.key === "ArrowUp" ) {
-          console.log( "Uo arrow" ); // does fire
-        }
-        if ( event.key === "ArrowLeft" ) {
-            console.log( "Left arrow" ); // does fire
-          }
-          if ( event.key === "ArrowRigth" ) {
-            console.log( "Rigth arrow" ); // does fire
-          }
+        this.movingCells();
     };
 
     movingCells = () => {
-        switch(this.state.content) {
+        switch (this.state.content) {
 
         }
 
+    }
+
+    reverseDash = (dashboard) => {
+        for (let i = 0; i < 4; i++) {
+            dashboard[i].reverse();
+          }
+          return dashboard;
     }
 
     //Move all the non zero cells to one direction
@@ -66,18 +83,19 @@ export default class Game extends Component {
         arr = zeros.concat(arr);
         return arr;
     }
+
     //Restart the game
     restartGame = () => {
         var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
         var randomNumber = Math.random(1) > 0.1 ? 2 : 4;
         var randomNumber2 = Math.random(1) > 0.1 ? 2 : 4;
 
-        auxiliar_dashboard[Math.floor(Math.random()*auxiliar_dashboard.length)].splice(Math.floor(Math.random()*auxiliar_dashboard.length), 1, randomNumber);
-        auxiliar_dashboard[Math.floor(Math.random()*auxiliar_dashboard.length)].splice(Math.floor(Math.random()*auxiliar_dashboard.length), 1, randomNumber2);
-            this.setState({
-                dashboard: auxiliar_dashboard,
-                score: 222,
-            })
+        auxiliar_dashboard[Math.floor(Math.random() * auxiliar_dashboard.length)].splice(Math.floor(Math.random() * auxiliar_dashboard.length), 1, randomNumber);
+        auxiliar_dashboard[Math.floor(Math.random() * auxiliar_dashboard.length)].splice(Math.floor(Math.random() * auxiliar_dashboard.length), 1, randomNumber2);
+        this.setState({
+            dashboard: auxiliar_dashboard,
+            score: 222,
+        })
     }
 
 
