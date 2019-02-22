@@ -104,10 +104,24 @@ export default class Game extends Component {
         auxiliar_dashboard[Math.floor(Math.random() * auxiliar_dashboard.length)].splice(Math.floor(Math.random() * auxiliar_dashboard.length), 1, randomNumber2);
         this.setState({
             dashboard: auxiliar_dashboard,
-            score: 222,
+            score: 0,
         })
     }
 
+    combiningRows = (row) => {
+        for (let i = 3; i >= 1; i--) {
+            let a = row[i];
+            let b = row[i - 1];
+            if (a == b) {
+              row[i] = a + b;
+              this.setState({
+                  score: this.state.score + row[i],
+              })
+              row[i - 1] = 0;
+            }
+          }
+          return row;
+    }
 
     render = () => {
 
