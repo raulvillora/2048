@@ -45,7 +45,7 @@ export default class Game extends Component {
         if (event.key === "ArrowUp") {
             this.setState({
                 content: 'up',
-                dashboard: this.reverseDash(this.state.dashboard),
+                dashboard: this.reverseDashboard(this.state.dashboard),
             })
         }
         if (event.key === "ArrowLeft") {
@@ -68,11 +68,21 @@ export default class Game extends Component {
 
     }
 
-    reverseDash = (dashboard) => {
+    reverseDashboard = (dashboard) => {
         for (let i = 0; i < 4; i++) {
             dashboard[i].reverse();
           }
           return dashboard;
+    }
+
+    transposeDashboard = (dashboard) => {
+        var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+                auxiliar_dashboard[i][j] = dashboard[j][i];
+            }
+          }
+        return auxiliar_dashboard;
     }
 
     //Move all the non zero cells to one direction
