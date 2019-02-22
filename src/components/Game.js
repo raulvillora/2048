@@ -24,48 +24,91 @@ export default class Game extends Component {
         document.removeEventListener('keydown', this.handleKeyPress);
     }
 
-    handleKeyPress(event) {
-        if(event.keyCode === 37){
+    handleKeyPress = (event) => {
+
+        let flipped = false;
+        let rotated = false;
+        let played = false;
+
+        if (event.keyCode === 37) {
+            played = true;
             console.log("left arrow 37");
             this.setState({
                 content: 'left',
-                //dashboard: this.transposeDashboard(this.state.dashboard),
-            })
+                dashboard: this.transposeDashboard(this.state.dashboard),
+            });
+            this.setState({
+                dashboard: this.reverseDashboard(this.state.dashboard),
+            });
+            rotated = true;
+            flipped = true;
             //this.afterPressedKey(this.state.dashboard);
         }
-        else if(event.keyCode === 38){
+        else if (event.keyCode === 38) {
+            played = true;
             console.log("up arrow 38");
+            console.log(this.state.dashboard)
+                console.log(this.reverseDashboard(this.state.dashboard))
             this.setState({
                 content: 'up',
-                //dashboard: this.reverseDashboard(this.state.dashboard),
-            })
-            this.afterPressedKey(this.state.dashboard);
+                dashboard: this.reverseDashboard(this.state.dashboard),
+            });
+            flipped = true;
+            // this.afterPressedKey(this.state.dashboard);
         }
-        else if(event.keyCode === 39){
+        else if (event.keyCode === 39) {
+            played = true;
             console.log("rigth arrow 39");
             this.setState({
                 content: 'rigth',
-                //dashboard: this.reverseDashboard(this.state.dashboard),
+                dashboard: this.transposeDashboard(this.state.dashboard),
             });
-
-            // this.setState({
-            //     dashboard: this.transposeDashboard(this.state.dashboard),
-            // })
+            rotated = true;
             // this.afterPressedKey(this.state.dashboard);
         }
-        else if(event.keyCode === 40){
+        else if (event.keyCode === 40) {
+            played = true;
             console.log("down arrow 40");
             this.setState({
                 content: 'down',
-            })
+            });
         }
-    };
+
+        if (played) {
+            let past = this.makeCopy(this.state.dashboard);
+            var auxiliar_dashboard_2 = this.makeCopy(this.state.dashboard);;
+            for (let i = 0; i < 4; i++) {
+                auxiliar_dashboard_2[i] = this.nextMove(this.state.dashboard[i]);
+                this.setState({
+                    dashboard: auxiliar_dashboard_2,
+                });
+            }
+
+            let changed = this.comparingDashboards(past, this.state.dashboard);
+
+            if (flipped) {
+                console.log(this.state.dashboard)
+                console.log(this.reverseDashboard(this.state.dashboard))
+                this.setState({
+                    dashboard: this.reverseDashboard(this.state.dashboard)
+                });
+            }
+            if (rotated) {
+                this.setState({
+                    dashboard: this.transposeDashboard(this.state.dashboard)
+                });
+            }
+            if (changed) {
+                this.newNumber(this.state.dashboard);
+            }
+        }
+    }
 
     reverseDashboard = (dashboard) => {
         for (let i = 0; i < 4; i++) {
             dashboard[i].reverse();
-          }
-          return dashboard;
+        }
+        return dashboard;
     }
 
     transposeDashboard = (dashboard) => {
@@ -74,7 +117,7 @@ export default class Game extends Component {
             for (let j = 0; j < 4; j++) {
                 auxiliar_dashboard[i][j] = dashboard[j][i];
             }
-          }
+        }
         return auxiliar_dashboard;
     }
 
@@ -106,14 +149,14 @@ export default class Game extends Component {
             let a = row[i];
             let b = row[i - 1];
             if (a === b) {
-              row[i] = a + b;
-              this.setState({
-                  score: this.state.score + row[i],
-              })
-              row[i - 1] = 0;
+                row[i] = a + b;
+                this.setState({
+                    score: this.state.score + row[i],
+                })
+                row[i - 1] = 0;
             }
-          }
-          return row;
+        }
+        return row;
     }
 
 
@@ -155,17 +198,17 @@ export default class Game extends Component {
 
     //newNumber
     newNumber = (dashboard) => {
-        console.log("New number "+this.state.dashboard);
+        console.log("New number " + this.state.dashboard);
         var cellsAvailable = [];
         var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
-              if (dashboard[i][j] === 0) {
-                cellsAvailable.push({
-                  x: i,
-                  y: j
-                });
-              }
+                if (dashboard[i][j] === 0) {
+                    cellsAvailable.push({
+                        x: i,
+                        y: j
+                    });
+                }
             }
         }
 
@@ -175,29 +218,29 @@ export default class Game extends Component {
             var auxiliar_dashboard_2 = this.state.dashboard;
             auxiliar_dashboard_2[spot.x][spot.y] = r > 0.1 ? 2 : 4;
             this.setState({
-                 dashboard: auxiliar_dashboard_2,
+                dashboard: auxiliar_dashboard_2,
             });
             auxiliar_dashboard[spot.x][spot.y] = 1;
-          }
+        }
     }
 
     comparingDashboards = (a, b) => {
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
-              if (a[i][j] !== b[i][j]) {
-                return true;
-              }
+                if (a[i][j] !== b[i][j]) {
+                    return true;
+                }
             }
-          }
-          return false;
+        }
+        return false;
     }
 
     makeCopy = (dashboard) => {
         var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
         for (let i = 0; i < 4; i++) {
-          for (let j = 0; j < 4; j++) {
-            auxiliar_dashboard[i][j] = dashboard[i][j];
-          }
+            for (let j = 0; j < 4; j++) {
+                auxiliar_dashboard[i][j] = dashboard[i][j];
+            }
         }
         return auxiliar_dashboard;
     }
