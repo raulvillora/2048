@@ -121,7 +121,7 @@ export default class Game extends Component {
         for (let i = 3; i >= 1; i--) {
             let a = row[i];
             let b = row[i - 1];
-            if (a == b) {
+            if (a === b) {
               row[i] = a + b;
               this.setState({
                   score: this.state.score + row[i],
@@ -135,11 +135,51 @@ export default class Game extends Component {
     afterPressedKey = (dashboard) => {
         var auxiliar_dashboard = this.makeCopy(this.state.dashboard);
         for (let i = 0; i < 4; i++) dashboard[i] = this.nextMove(dashboard[i]);
-        if(this.comparingDashboards(auxiliar_dashboard,dashboard)) newNumber();
+        if(this.state.content === 'up') {
+            this.setState({
+                dashboard : this.reverseDashboard(this.state.dashboard),
+            })
+        }
+        if(this.state.content === 'rigth') {
+            this.setState({
+                dashboard : this.transposeDashboard(this.state.dashboard),
+            })
+        }
+        if(this.state.content === 'left') {
+            this.setState({
+                dashboard : this.reverseDashboard(this.state.dashboard),
+            })
+            this.setState({
+                dashboard : this.transposeDashboard(this.state.dashboard),
+            })
+        }
+        if(this.comparingDashboards(auxiliar_dashboard,dashboard)) this.newNumber();
 
     }
 
     //newNumber
+    newNumber = (dashboard) => {
+        var cellsAvailable = [];
+        var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+              if (dashboard[i][j] === 0) {
+                cellsAvailable.push({
+                  x: i,
+                  y: j
+                });
+              }
+            }
+        }
+
+        if (cellsAvailable.length > 0) {
+            let spot = Math.random(cellsAvailable);
+            let r = Math.random(1);
+            dashboard[spot.x][spot.y] = r > 0.1 ? 2 : 4;
+            auxiliar_dashboard[spot.x][spot.y] = 1;
+          }
+    }
+
     comparingDashboards = (dashboardA, dashboardB) => {
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
