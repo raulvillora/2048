@@ -33,14 +33,15 @@ export default class Game extends Component {
             })
             //this.afterPressedKey(this.state.dashboard);
         }
-        if(event.keyCode === 38){
+        else if(event.keyCode === 38){
             console.log("up arrow 38");
             this.setState({
                 content: 'up',
                 //dashboard: this.reverseDashboard(this.state.dashboard),
             })
+            this.afterPressedKey(this.state.dashboard);
         }
-        if(event.keyCode === 39){
+        else if(event.keyCode === 39){
             console.log("rigth arrow 39");
             this.setState({
                 content: 'rigth',
@@ -52,7 +53,7 @@ export default class Game extends Component {
             // })
             // this.afterPressedKey(this.state.dashboard);
         }
-        if(event.keyCode === 40){
+        else if(event.keyCode === 40){
             console.log("down arrow 40");
             this.setState({
                 content: 'down',
@@ -60,33 +61,31 @@ export default class Game extends Component {
         }
     };
 
+    reverseDashboard = (dashboard) => {
+        for (let i = 0; i < 4; i++) {
+            dashboard[i].reverse();
+          }
+          return dashboard;
+    }
 
+    transposeDashboard = (dashboard) => {
+        var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+                auxiliar_dashboard[i][j] = dashboard[j][i];
+            }
+          }
+        return auxiliar_dashboard;
+    }
 
-    // reverseDashboard = (dashboard) => {
-    //     for (let i = 0; i < 4; i++) {
-    //         dashboard[i].reverse();
-    //       }
-    //       return dashboard;
-    // }
-
-    // transposeDashboard = (dashboard) => {
-    //     var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
-    //     for (let i = 0; i < 4; i++) {
-    //         for (let j = 0; j < 4; j++) {
-    //             auxiliar_dashboard[i][j] = dashboard[j][i];
-    //         }
-    //       }
-    //     return auxiliar_dashboard;
-    // }
-
-    // //Move all the non zero cells to one direction
-    // moveTo = (row) => {
-    //     let arr = row.filter(val => val);
-    //     let missing = 4 - arr.length;
-    //     let zeros = Array(missing).fill(0);
-    //     arr = zeros.concat(arr);
-    //     return arr;
-    // }
+    //Move all the non zero cells to one direction
+    moveTo = (row) => {
+        let arr = row.filter(val => val);
+        let missing = 4 - arr.length;
+        let zeros = Array(missing).fill(0);
+        arr = zeros.concat(arr);
+        return arr;
+    }
 
     //Restart the game
     restartGame = () => {
@@ -102,96 +101,113 @@ export default class Game extends Component {
         })
     }
 
-    // combiningRows = (row) => {
-    //     for (let i = 3; i >= 1; i--) {
-    //         let a = row[i];
-    //         let b = row[i - 1];
-    //         if (a === b) {
-    //           row[i] = a + b;
-    //           this.setState({
-    //               score: this.state.score + row[i],
-    //           })
-    //           row[i - 1] = 0;
-    //         }
-    //       }
-    //       return row;
-    // }
+    combiningRows = (row) => {
+        for (let i = 3; i >= 1; i--) {
+            let a = row[i];
+            let b = row[i - 1];
+            if (a === b) {
+              row[i] = a + b;
+              this.setState({
+                  score: this.state.score + row[i],
+              })
+              row[i - 1] = 0;
+            }
+          }
+          return row;
+    }
+
+
 
     // afterPressedKey = (dashboard) => {
     //     var auxiliar_dashboard = this.makeCopy(this.state.dashboard);
-    //     for (let i = 0; i < 4; i++) dashboard[i] = this.nextMove(dashboard[i]);
+    //     for (let i = 0; i < 4; i++) {
+    //         var auxiliar_dashboard_2 = this.state.dashboard;
+    //         auxiliar_dashboard_2[i] = this.nextMove(this.state.dashboard[i]);
+    //         this.setState({
+    //              dashboard: auxiliar_dashboard_2,
+    //         });
+    //     }
+    //     let change = this.comparingDashboards(auxiliar_dashboard,this.state.dashboard);
+
     //     if(this.state.content === 'up') {
-    //         this.setState({
-    //             dashboard : this.reverseDashboard(this.state.dashboard),
-    //         })
+    //          this.setState({
+    //              dashboard : this.reverseDashboard(this.state.dashboard),
+    //         });
+    //         console.log(this.state.dashboard);
     //     }
-    //     if(this.state.content === 'rigth') {
-    //         this.setState({
-    //             dashboard : this.transposeDashboard(this.state.dashboard),
-    //         })
-    //     }
-    //     if(this.state.content === 'left') {
-    //         this.setState({
-    //             dashboard : this.reverseDashboard(this.state.dashboard),
-    //         })
-    //         this.setState({
-    //             dashboard : this.transposeDashboard(this.state.dashboard),
-    //         })
-    //     }
-    //     if(this.comparingDashboards(auxiliar_dashboard,dashboard)) this.newNumber();
+    //     // if(this.state.content === 'rigth') {
+    //     //     this.setState({
+    //     //         dashboard : this.transposeDashboard(this.state.dashboard),
+    //     //     })
+    //     // }
+    //     // if(this.state.content === 'left') {
+    //     //     this.setState({
+    //     //         dashboard : this.reverseDashboard(this.state.dashboard),
+    //     //     })
+    //     //     this.setState({
+    //     //         dashboard : this.transposeDashboard(this.state.dashboard),
+    //     //     })
+    //     // }
+
+    //     if(change) this.newNumber(this.state.dashboard);
 
     // }
 
-    // //newNumber
-    // newNumber = (dashboard) => {
-    //     var cellsAvailable = [];
-    //     var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
-    //     for (let i = 0; i < 4; i++) {
-    //         for (let j = 0; j < 4; j++) {
-    //           if (dashboard[i][j] === 0) {
-    //             cellsAvailable.push({
-    //               x: i,
-    //               y: j
-    //             });
-    //           }
-    //         }
-    //     }
+    //newNumber
+    newNumber = (dashboard) => {
+        console.log("New number "+this.state.dashboard);
+        var cellsAvailable = [];
+        var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+              if (dashboard[i][j] === 0) {
+                cellsAvailable.push({
+                  x: i,
+                  y: j
+                });
+              }
+            }
+        }
 
-    //     if (cellsAvailable.length > 0) {
-    //         let spot = Math.random(cellsAvailable);
-    //         let r = Math.random(1);
-    //         dashboard[spot.x][spot.y] = r > 0.1 ? 2 : 4;
-    //         auxiliar_dashboard[spot.x][spot.y] = 1;
-    //       }
-    // }
+        if (cellsAvailable.length > 0) {
+            let spot = Math.random(cellsAvailable);
+            let r = Math.random(1);
+            var auxiliar_dashboard_2 = this.state.dashboard;
+            auxiliar_dashboard_2[spot.x][spot.y] = r > 0.1 ? 2 : 4;
+            this.setState({
+                 dashboard: auxiliar_dashboard_2,
+            });
+            auxiliar_dashboard[spot.x][spot.y] = 1;
+          }
+    }
 
-    // comparingDashboards = (dashboardA, dashboardB) => {
-    //     for (let i = 0; i < 4; i++) {
-    //         for (let j = 0; j < 4; j++) {
-    //           if (dashboardA[i][j] !== dashboardB[i][j]) {
-    //             return true;
-    //           }
-    //         }
-    //       }
-    //       return false;
-    // }
+    comparingDashboards = (a, b) => {
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+              if (a[i][j] !== b[i][j]) {
+                return true;
+              }
+            }
+          }
+          return false;
+    }
 
-    // makeCopy = (dashboard) => {
-    //     var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
-    //     for (let i = 0; i < 4; i++) {
-    //       for (let j = 0; j < 4; j++) {
-    //         auxiliar_dashboard[i][j] = dashboard[i][j];
-    //       }
-    //     }
-    //     return auxiliar_dashboard;
-    // }
+    makeCopy = (dashboard) => {
+        var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+        for (let i = 0; i < 4; i++) {
+          for (let j = 0; j < 4; j++) {
+            auxiliar_dashboard[i][j] = dashboard[i][j];
+          }
+        }
+        return auxiliar_dashboard;
+    }
 
-    // nextMove = (row) => {
-    //     row = this.moveTo(row);
-    //     row = this.combiningRows(row);
-    //     row = this.moveTo(row);
-    //     return row;
-    // }
+    nextMove = (row) => {
+        row = this.moveTo(row);
+        row = this.combiningRows(row);
+        row = this.moveTo(row);
+        return row;
+    }
 
     render = () => {
 
