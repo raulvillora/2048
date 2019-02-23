@@ -62,16 +62,17 @@ export default class Game extends Component {
 
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
-              if ((auxDash[i][j] === 0) && (auxDash[i][j+1] === 0)) {
-              		auxDash[i].splice(j,2);
-                	auxDash[i].splice(2, 0, 0,0);
-              }
-              if (auxDash[i][j] === 0) {
-                	auxDash[i].splice(j,1);
-                	auxDash[i].splice(3, 0, 0);
-                 }
+                if ((auxDash[i][j] === 0) && (auxDash[i][j + 1] === 0)) {
+                    auxDash[i].splice(j, 2);
+                    auxDash[i].splice(2, 0, 0, 0);
+                }
+                if (auxDash[i][j] === 0) {
+                    auxDash[i].splice(j, 1);
+                    auxDash[i].splice(3, 0, 0);
+                }
             }
         }
+        console.log(auxDash);
         this.setState({
             dashboard: auxDash,
         });
@@ -80,22 +81,19 @@ export default class Game extends Component {
     //Move all the zero to the left side of the row
     moveCellsRigth = () => {
         var auxDash = this.makeCopy(this.state.dashboard);
-        
-
-        for (let i = 0; i < 4; i++) {
-            var count = 0;
-            var aux = 0;
-            for (let j = 0; j < 4; j++) {
-                if (auxDash[i][j] === 0) {
-                    aux = auxDash[count];
-                    auxDash[count] = auxDash[j];
-                    console.log("auxDash is "+ auxDash[j]);
-                    console.log("aux is "+ aux);
-                    auxDash[j] = aux;
-                    count++;
-                }
-            }
-        }
+        for (let i = 3; i >= 0; i--) {
+                  let current = 3;
+               for (let j = 3; j >= 0; j--) {
+                   if(auxDash[i][j] !== 0){
+                       auxDash[i][current] = auxDash[i][j];
+                     current--;
+                   }
+               }
+               while(current>=0) {
+                   auxDash[i][current] = 0;
+                     current--;
+               }		
+       }
         console.log(auxDash);
         this.setState({
             dashboard: auxDash,
