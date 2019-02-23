@@ -13,7 +13,6 @@ export default class Dashboard extends Component {
             content: '',
         }
 
-        
     }
 
     updateDashboard = () => {
@@ -22,7 +21,6 @@ export default class Dashboard extends Component {
         })
         console.log("dashboard state is: " + this.state.dashboard);
     }
-
 
     render = () => {
 

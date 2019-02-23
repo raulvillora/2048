@@ -9,7 +9,6 @@ export default class Game extends Component {
         this.state = {
             buttonClicked: false,
             dashboard: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
-            //auxiliar_dashboard: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
             score: 0,
             content: '',
         };
@@ -39,8 +38,7 @@ export default class Game extends Component {
             this.setState({
                 dashboard: this.moveCellsLeft(aux),
             });
-            console.log("moveCellsLeft " + aux);
-            //this.newNumber(this.state.dashboard);
+            this.newNumber();
         }
         //Up arrow
         else if (event.keyCode === 38) {
@@ -55,7 +53,7 @@ export default class Game extends Component {
             this.setState({
                 dashboard: this.transposeDashboard(aux),
             });
-            //this.newNumber(this.state.dashboard);
+            this.newNumber();
         }
 
         //Rigth arrow
@@ -70,7 +68,7 @@ export default class Game extends Component {
             this.setState({
                 dashboard: this.moveCellsRigth(aux),
             });
-            //this.newNumber(this.state.dashboard);
+            this.newNumber();
         }
         //Down arrow
         else if (event.keyCode === 40) {
@@ -86,7 +84,7 @@ export default class Game extends Component {
             this.setState({
                 dashboard: this.transposeDashboard(aux),
             });
-            //this.newNumber(this.state.dashboard);
+            this.newNumber();
         }
     }
 
@@ -168,27 +166,29 @@ export default class Game extends Component {
         return dashboard;
     }
 
-    newNumber = (dashboard) => {
-        var cellsAvailable = [];
+    newNumber = () => {
+        let auxDash = this.state.dashboard;
+
+        
+        var cellAvailableX = [];
+        var cellAvailableY = [];
+
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
-                if (dashboard[i][j] === 0) {
-                    cellsAvailable.push({
-                        x: i,
-                        y: j
-                    });
+                if (auxDash[i][j] === 0) {
+                    cellAvailableX.push(i);
+                    cellAvailableY.push(j);
                 }
             }
         }
+        var randomPosition = Math.floor(Math.random()*cellAvailableX.length);
 
-        if (cellsAvailable.length > 0) {
-            let spot = Math.random(cellsAvailable);
-            let r = Math.random(1);
-            var auxiliar_dashboard_2 = this.state.dashboard;
-            auxiliar_dashboard_2[spot.x][spot.y] = r > 0.1 ? 2 : 4;
+        if (cellAvailableX.length > 0) {
+            var auxiliar_dashboard_2 = this.makeCopy(this.state.dashboard);
+            auxiliar_dashboard_2[cellAvailableX[randomPosition]][cellAvailableY[randomPosition]] = (Math.random(1)) > 0.1 ? 2 : 4;
             this.setState({
                 dashboard: auxiliar_dashboard_2,
-            });
+            });                        
         }
     }
 
