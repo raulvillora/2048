@@ -30,20 +30,26 @@ export default class Game extends Component {
             console.log("left");
             this.setState({
                 content: 'left',
+                
             });
-            this.setState ({
-                dashboard: this.moveCellsLeft(this.state.dashboard),
+
+            let aux = this.moveCellsLeft(this.state.dashboard);
+            aux = this.combiningCells(aux);
+            this.setState({
+                dashboard: this.moveCellsLeft(aux),
             });
-            
         }
         //Up arrow
         else if (event.keyCode === 38) {
             this.setState({
                 content: 'up',
             });
-            let aux = this.transposeDashboard(this.state.dashboard);  
+            let aux = this.transposeDashboard(this.state.dashboard);
             aux = this.moveCellsLeft(aux);
-            this.setState ({
+            aux = this.combiningCells(aux);
+            aux = this.moveCellsLeft(aux);
+
+            this.setState({
                 dashboard: this.transposeDashboard(aux),
             });
         }
@@ -54,19 +60,25 @@ export default class Game extends Component {
             this.setState({
                 content: 'rigth',
             });
-            this.setState ({
-                dashboard: this.moveCellsRigth(this.state.dashboard)
+
+            let aux = this.moveCellsRigth(this.state.dashboard);
+            aux = this.combiningCells(aux);
+            this.setState({
+                dashboard: this.moveCellsRigth(aux),
             });
-            
         }
         //Down arrow
         else if (event.keyCode === 40) {
             this.setState({
                 content: 'down',
             });
-            let aux = this.transposeDashboard(this.state.dashboard);  
+
+            let aux = this.transposeDashboard(this.state.dashboard);
             aux = this.moveCellsRigth(aux);
-            this.setState ({
+            aux = this.combiningCells(aux);
+            aux = this.moveCellsRigth(aux);
+
+            this.setState({
                 dashboard: this.transposeDashboard(aux),
             });
         }
@@ -75,7 +87,6 @@ export default class Game extends Component {
     //Move all the zero to the left side of the row
     moveCellsLeft = (dashboard) => {
         var auxDash = this.makeCopy(dashboard);
-
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
                 if ((auxDash[i][j] === 0) && (auxDash[i][j + 1] === 0)) {
@@ -96,18 +107,18 @@ export default class Game extends Component {
     moveCellsRigth = (dashboard) => {
         var auxDash = this.makeCopy(dashboard);
         for (let i = 3; i >= 0; i--) {
-                  let current = 3;
-               for (let j = 3; j >= 0; j--) {
-                   if(auxDash[i][j] !== 0){
-                       auxDash[i][current] = auxDash[i][j];
-                     current--;
-                   }
-               }
-               while(current>=0) {
-                   auxDash[i][current] = 0;
-                     current--;
-               }		
-       }
+            let current = 3;
+            for (let j = 3; j >= 0; j--) {
+                if (auxDash[i][j] !== 0) {
+                    auxDash[i][current] = auxDash[i][j];
+                    current--;
+                }
+            }
+            while (current >= 0) {
+                auxDash[i][current] = 0;
+                current--;
+            }
+        }
         console.log(auxDash);
         return auxDash;
     }
@@ -152,20 +163,22 @@ export default class Game extends Component {
         });
     }
 
-    // combiningRows = (row) => {
-    //     for (let i = 3; i >= 1; i--) {
-    //         let a = row[i];
-    //         let b = row[i - 1];
-    //         if (a === b) {
-    //             row[i] = a + b;
-    //             this.setState({
-    //                 score: this.state.score + row[i],
-    //             })
-    //             row[i - 1] = 0;
-    //         }
-    //     }
-    //     return row;
-    // }
+    combiningCells = (dashboard) => {
+        for (let i = 3; i >= 1; i--) {
+            for (let j = 3; j >= 1; j--) {
+                let a = dashboard[i][j];
+                let b = dashboard[i][j - 1];
+                if (a === b) {
+                    dashboard[i][j] = a + b;
+                    this.setState({
+                        score: this.state.score + dashboard[i][j],
+                    });
+                    dashboard[i][j - 1] = 0;
+                }
+            }
+        }
+        return dashboard;
+    }
 
 
     // afterPressedKey = () => {
