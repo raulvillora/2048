@@ -25,39 +25,43 @@ export default class Game extends Component {
     }
 
     handleKeyPress(event) {
+        //Left arrow
         if(event.keyCode === 37){
-            console.log("left arrow 37");
+
             this.setState({
                 content: 'left',
-                //dashboard: this.transposeDashboard(this.state.dashboard),
-            })
-            //this.afterPressedKey(this.state.dashboard);
+                dashboard: this.transposeDashboard(this.state.dashboard),
+            });
+            this.setState({
+                dashboard: this.reverseDashboard(this.state.dashboard),
+            });
+            
+            this.afterPressedKey();
         }
+        //Up arrow
         else if(event.keyCode === 38){
             console.log("up arrow 38");
             this.setState({
                 content: 'up',
-                //dashboard: this.reverseDashboard(this.state.dashboard),
+                dashboard: this.reverseDashboard(this.state.dashboard),
             })
-            this.afterPressedKey(this.state.dashboard);
+            this.afterPressedKey();
         }
+        //Rigth arrow
         else if(event.keyCode === 39){
             console.log("rigth arrow 39");
             this.setState({
                 content: 'rigth',
-                //dashboard: this.reverseDashboard(this.state.dashboard),
+                dashboard: this.transposeDashboard(this.state.dashboard),
             });
-
-            // this.setState({
-            //     dashboard: this.transposeDashboard(this.state.dashboard),
-            // })
-            // this.afterPressedKey(this.state.dashboard);
+            this.afterPressedKey();
         }
+        //Down arrow
         else if(event.keyCode === 40){
             console.log("down arrow 40");
             this.setState({
                 content: 'down',
-            })
+            });
         }
     };
 
@@ -98,7 +102,7 @@ export default class Game extends Component {
         this.setState({
             dashboard: auxiliar_dashboard,
             score: 0,
-        })
+        });
     }
 
     combiningRows = (row) => {
@@ -117,41 +121,41 @@ export default class Game extends Component {
     }
 
 
+    afterPressedKey = () => {
+        let old_dash = this.makeCopy(this.state.dashboard);
+        let auxiliar_dashboard = this.makeCopy(this.state.dashboard);
+        for (let i = 0; i < 4; i++) {
+            auxiliar_dashboard[i] = this.nextMove(this.state.dashboard[i]);
+            this.setState({
+                 dashboard: auxiliar_dashboard,
+            });
+        }
+        
+        let change = this.comparingDashboards(old_dash,this.state.dashboard);
 
-    // afterPressedKey = (dashboard) => {
-    //     var auxiliar_dashboard = this.makeCopy(this.state.dashboard);
-    //     for (let i = 0; i < 4; i++) {
-    //         var auxiliar_dashboard_2 = this.state.dashboard;
-    //         auxiliar_dashboard_2[i] = this.nextMove(this.state.dashboard[i]);
-    //         this.setState({
-    //              dashboard: auxiliar_dashboard_2,
-    //         });
-    //     }
-    //     let change = this.comparingDashboards(auxiliar_dashboard,this.state.dashboard);
+        if(this.state.content === 'up') {
+             this.setState({
+                 dashboard : this.reverseDashboard(this.state.dashboard),
+            });
+            console.log(this.state.dashboard);
+        }
+        // if(this.state.content === 'rigth') {
+        //     this.setState({
+        //         dashboard : this.transposeDashboard(this.state.dashboard),
+        //     })
+        // }
+        // if(this.state.content === 'left') {
+        //     this.setState({
+        //         dashboard : this.reverseDashboard(this.state.dashboard),
+        //     })
+        //     this.setState({
+        //         dashboard : this.transposeDashboard(this.state.dashboard),
+        //     })
+        // }
 
-    //     if(this.state.content === 'up') {
-    //          this.setState({
-    //              dashboard : this.reverseDashboard(this.state.dashboard),
-    //         });
-    //         console.log(this.state.dashboard);
-    //     }
-    //     // if(this.state.content === 'rigth') {
-    //     //     this.setState({
-    //     //         dashboard : this.transposeDashboard(this.state.dashboard),
-    //     //     })
-    //     // }
-    //     // if(this.state.content === 'left') {
-    //     //     this.setState({
-    //     //         dashboard : this.reverseDashboard(this.state.dashboard),
-    //     //     })
-    //     //     this.setState({
-    //     //         dashboard : this.transposeDashboard(this.state.dashboard),
-    //     //     })
-    //     // }
+        if(change) this.newNumber(this.state.dashboard);
 
-    //     if(change) this.newNumber(this.state.dashboard);
-
-    // }
+    }
 
     //newNumber
     newNumber = (dashboard) => {
