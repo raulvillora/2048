@@ -190,7 +190,38 @@ export default class Game extends Component {
                 dashboard: auxiliar_dashboard_2,
             });                        
         }
+        if(this.won(this.state.dashboard)) alert("YOU HAVE WON THE GAME");
+        if(this.gameOver(this.state.dashboard)) alert("YOU HAVE LOST THE GAME");
     }
+
+    won = (dashboard) => {
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+              if (dashboard[i][j] === 2048) {
+               return true;
+              }
+            }
+          }
+        return false;
+    }
+
+    gameOver = (dashboard) => {
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+              if (dashboard[i][j] === 0) {
+                return false;
+              }
+              if (i !== 3 && dashboard[i][j] === dashboard[i + 1][j]) {
+                return false;
+              }
+              if (j !== 3 && dashboard[i][j] === dashboard[i][j + 1]) {
+                return false;
+              }
+            }
+          }
+        return true;
+    }
+
 
     makeCopy = (dashboard) => {
         var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
