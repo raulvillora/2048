@@ -127,13 +127,6 @@ export default class Game extends Component {
         return auxDash;
     }
 
-    // reverseDashboard = (dashboard) => {
-    //     for (let i = 0; i < 4; i++) {
-    //         dashboard[i].reverse();
-    //     }
-    //     return dashboard;
-    // }
-
     transposeDashboard = (dashboard) => {
         var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
         for (let i = 0; i < 4; i++) {
@@ -199,17 +192,6 @@ export default class Game extends Component {
         }
     }
 
-    // comparingDashboards = (a, b) => {
-    //     for (let i = 0; i < 4; i++) {
-    //         for (let j = 0; j < 4; j++) {
-    //             if (a[i][j] !== b[i][j]) {
-    //                 return true;
-    //             }
-    //         }
-    //     }
-    //     return false;
-    // }
-
     makeCopy = (dashboard) => {
         var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
         for (let i = 0; i < 4; i++) {
@@ -219,13 +201,6 @@ export default class Game extends Component {
         }
         return auxiliar_dashboard;
     }
-
-    // nextMove = (row) => {
-    //     row = this.moveTo(row);
-    //     row = this.combiningRows(row);
-    //     row = this.moveTo(row);
-    //     return row;
-    // }
 
     render = () => {
         return (
