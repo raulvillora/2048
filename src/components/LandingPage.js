@@ -7,7 +7,7 @@ export default class LandingPage extends Component {
     render = () => {
         return (
             <div className="headingStyle">
-                <Link to="/2048">
+                <Link to="/game">
                     <h1>
                         <span>W</span>
                         <span>e</span>

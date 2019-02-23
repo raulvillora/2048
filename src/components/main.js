@@ -6,7 +6,8 @@ import Game from "./Game";
 const Main = () => (
   <Switch>
     <Route exact path="/" component={LandingPage} />
-    <Route exact path="/2048" component={Game} />
+    <Route exact path="/2048" component={LandingPage} />
+    <Route exact path="/game" component={Game} />
   </Switch>
 )
 
