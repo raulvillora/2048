@@ -26,72 +26,107 @@ export default class Game extends Component {
 
     handleKeyPress(event) {
         //Left arrow
-        if(event.keyCode === 37){
-
+        if (event.keyCode === 37) {
+            console.log("left");
             this.setState({
                 content: 'left',
-                dashboard: this.transposeDashboard(this.state.dashboard),
             });
-            this.setState({
-                dashboard: this.reverseDashboard(this.state.dashboard),
-            });
-            
-            this.afterPressedKey();
+            this.moveCellsLeft();
         }
         //Up arrow
-        else if(event.keyCode === 38){
-            console.log("up arrow 38");
-            console.log(this.state.dashboard)
-                console.log(this.reverseDashboard(this.state.dashboard))
-            this.setState({
-                content: 'up',
-                dashboard: this.reverseDashboard(this.state.dashboard),
-            })
-            this.afterPressedKey();
-        }
+        // else if (event.keyCode === 38) {
+        //     this.setState({
+        //         content: 'up',
+        //     });
+        // }
+
         //Rigth arrow
-        else if(event.keyCode === 39){
-            console.log("rigth arrow 39");
+        else if (event.keyCode === 39) {
+            console.log("rigth");
             this.setState({
                 content: 'rigth',
-                dashboard: this.transposeDashboard(this.state.dashboard),
             });
-            this.afterPressedKey();
+            this.moveCellsRigth();
         }
         //Down arrow
-        else if(event.keyCode === 40){
-            console.log("down arrow 40");
-            this.setState({
-                content: 'down',
-            });
-        }
+        // else if (event.keyCode === 40) {
+        //     this.setState({
+        //         content: 'down',
+        //     });
+        // }
     }
 
-    reverseDashboard = (dashboard) => {
-        for (let i = 0; i < 4; i++) {
-            dashboard[i].reverse();
-        }
-        return dashboard;
-    }
+    //Move all the zero to the left side of the row
+    moveCellsLeft = () => {
+        var auxDash = this.makeCopy(this.state.dashboard);
 
-    transposeDashboard = (dashboard) => {
-        var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
-                auxiliar_dashboard[i][j] = dashboard[j][i];
+              if ((auxDash[i][j] === 0) && (auxDash[i][j+1] === 0)) {
+              		auxDash[i].splice(j,2);
+                	auxDash[i].splice(2, 0, 0,0);
+              }
+              if (auxDash[i][j] === 0) {
+                	auxDash[i].splice(j,1);
+                	auxDash[i].splice(3, 0, 0);
+                 }
             }
         }
-        return auxiliar_dashboard;
+        this.setState({
+            dashboard: auxDash,
+        });
     }
 
-    //Move all the non zero cells to one direction
-    moveTo = (row) => {
-        let arr = row.filter(val => val);
-        let missing = 4 - arr.length;
-        let zeros = Array(missing).fill(0);
-        arr = zeros.concat(arr);
-        return arr;
+    //Move all the zero to the left side of the row
+    moveCellsRigth = () => {
+        var auxDash = this.makeCopy(this.state.dashboard);
+        
+
+        for (let i = 0; i < 4; i++) {
+            var count = 0;
+            var aux = 0;
+            for (let j = 0; j < 4; j++) {
+                if (auxDash[i][j] === 0) {
+                    aux = auxDash[count];
+                    auxDash[count] = auxDash[j];
+                    console.log("auxDash is "+ auxDash[j]);
+                    console.log("aux is "+ aux);
+                    auxDash[j] = aux;
+                    count++;
+                }
+            }
+        }
+        console.log(auxDash);
+        this.setState({
+            dashboard: auxDash,
+        });
     }
+
+    // reverseDashboard = (dashboard) => {
+    //     for (let i = 0; i < 4; i++) {
+    //         dashboard[i].reverse();
+    //     }
+    //     return dashboard;
+    // }
+
+    // transposeDashboard = (dashboard) => {
+    //     var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+    //     for (let i = 0; i < 4; i++) {
+    //         for (let j = 0; j < 4; j++) {
+    //             auxiliar_dashboard[i][j] = dashboard[j][i];
+    //         }
+    //     }
+    //     return auxiliar_dashboard;
+    // }
+
+    //Move all the non zero cells to one direction
+    // moveTo = (row) => {
+    //     let arr = row.filter(val => val);
+    //     let missing = 4 - arr.length;
+    //     let zeros = Array(missing).fill(0);
+    //     arr = zeros.concat(arr);
+    //     return arr;
+    // }
 
     //Restart the game
     restartGame = () => {
@@ -107,96 +142,98 @@ export default class Game extends Component {
         });
     }
 
-    combiningRows = (row) => {
-        for (let i = 3; i >= 1; i--) {
-            let a = row[i];
-            let b = row[i - 1];
-            if (a === b) {
-                row[i] = a + b;
-                this.setState({
-                    score: this.state.score + row[i],
-                })
-                row[i - 1] = 0;
-            }
-        }
-        return row;
-    }
+    // combiningRows = (row) => {
+    //     for (let i = 3; i >= 1; i--) {
+    //         let a = row[i];
+    //         let b = row[i - 1];
+    //         if (a === b) {
+    //             row[i] = a + b;
+    //             this.setState({
+    //                 score: this.state.score + row[i],
+    //             })
+    //             row[i - 1] = 0;
+    //         }
+    //     }
+    //     return row;
+    // }
 
 
-    afterPressedKey = () => {
-        let old_dash = this.makeCopy(this.state.dashboard);
-        let auxiliar_dashboard = this.makeCopy(this.state.dashboard);
-        for (let i = 0; i < 4; i++) {
-            auxiliar_dashboard[i] = this.nextMove(this.state.dashboard[i]);
-            this.setState({
-                 dashboard: auxiliar_dashboard,
-            });
-        }
-        
-        let change = this.comparingDashboards(old_dash,this.state.dashboard);
+    // afterPressedKey = () => {
+    //     let old_dash = this.makeCopy(this.state.dashboard);
 
-        if(this.state.content === 'up') {
-             this.setState({
-                 dashboard : this.reverseDashboard(this.state.dashboard),
-            });
-            console.log(this.state.dashboard);
-        }
-        // if(this.state.content === 'rigth') {
-        //     this.setState({
-        //         dashboard : this.transposeDashboard(this.state.dashboard),
-        //     })
-        // }
-        // if(this.state.content === 'left') {
-        //     this.setState({
-        //         dashboard : this.reverseDashboard(this.state.dashboard),
-        //     })
-        //     this.setState({
-        //         dashboard : this.transposeDashboard(this.state.dashboard),
-        //     })
-        // }
+    //     let auxiliar_dashboard = this.makeCopy(this.state.dashboard);
 
-        if(change) this.newNumber(this.state.dashboard);
+    //     for (let i = 0; i < 4; i++) {
+    //         auxiliar_dashboard[i] = this.nextMove(this.state.dashboard[i]);
+    //         this.setState({
+    //             dashboard: auxiliar_dashboard,
+    //         });
+    //     }
 
-    }
+    //     let change = this.comparingDashboards(old_dash, this.state.dashboard);
 
-    //newNumber
-    newNumber = (dashboard) => {
-        console.log("New number " + this.state.dashboard);
-        var cellsAvailable = [];
-        var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
-        for (let i = 0; i < 4; i++) {
-            for (let j = 0; j < 4; j++) {
-                if (dashboard[i][j] === 0) {
-                    cellsAvailable.push({
-                        x: i,
-                        y: j
-                    });
-                }
-            }
-        }
+    // if (this.state.content === 'up') {
+    //     this.setState({
+    //         dashboard: this.reverseDashboard(this.state.dashboard),
+    //     });
+    //     console.log(this.state.dashboard);
+    // }
+    // if(this.state.content === 'rigth') {
+    //     this.setState({
+    //         dashboard : this.transposeDashboard(this.state.dashboard),
+    //     })
+    // }
+    // if(this.state.content === 'left') {
+    //     this.setState({
+    //         dashboard : this.reverseDashboard(this.state.dashboard),
+    //     })
+    //     this.setState({
+    //         dashboard : this.transposeDashboard(this.state.dashboard),
+    //     })
+    // }
 
-        if (cellsAvailable.length > 0) {
-            let spot = Math.random(cellsAvailable);
-            let r = Math.random(1);
-            var auxiliar_dashboard_2 = this.state.dashboard;
-            auxiliar_dashboard_2[spot.x][spot.y] = r > 0.1 ? 2 : 4;
-            this.setState({
-                dashboard: auxiliar_dashboard_2,
-            });
-            auxiliar_dashboard[spot.x][spot.y] = 1;
-        }
-    }
+    //     if (change) this.newNumber(this.state.dashboard);
 
-    comparingDashboards = (a, b) => {
-        for (let i = 0; i < 4; i++) {
-            for (let j = 0; j < 4; j++) {
-                if (a[i][j] !== b[i][j]) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+    // }
+
+    // //newNumber
+    // newNumber = (dashboard) => {
+    //     console.log("New number " + this.state.dashboard);
+    //     var cellsAvailable = [];
+    //     var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+    //     for (let i = 0; i < 4; i++) {
+    //         for (let j = 0; j < 4; j++) {
+    //             if (dashboard[i][j] === 0) {
+    //                 cellsAvailable.push({
+    //                     x: i,
+    //                     y: j
+    //                 });
+    //             }
+    //         }
+    //     }
+
+    //     if (cellsAvailable.length > 0) {
+    //         let spot = Math.random(cellsAvailable);
+    //         let r = Math.random(1);
+    //         var auxiliar_dashboard_2 = this.state.dashboard;
+    //         auxiliar_dashboard_2[spot.x][spot.y] = r > 0.1 ? 2 : 4;
+    //         this.setState({
+    //             dashboard: auxiliar_dashboard_2,
+    //         });
+    //         auxiliar_dashboard[spot.x][spot.y] = 1;
+    //     }
+    // }
+
+    // comparingDashboards = (a, b) => {
+    //     for (let i = 0; i < 4; i++) {
+    //         for (let j = 0; j < 4; j++) {
+    //             if (a[i][j] !== b[i][j]) {
+    //                 return true;
+    //             }
+    //         }
+    //     }
+    //     return false;
+    // }
 
     makeCopy = (dashboard) => {
         var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
@@ -208,15 +245,14 @@ export default class Game extends Component {
         return auxiliar_dashboard;
     }
 
-    nextMove = (row) => {
-        row = this.moveTo(row);
-        row = this.combiningRows(row);
-        row = this.moveTo(row);
-        return row;
-    }
+    // nextMove = (row) => {
+    //     row = this.moveTo(row);
+    //     row = this.combiningRows(row);
+    //     row = this.moveTo(row);
+    //     return row;
+    // }
 
     render = () => {
-
         return (
             <div className="container">
                 <div className="row">
@@ -237,7 +273,6 @@ export default class Game extends Component {
                         {/* HERE it is need to call a function to know which is the next move and then (or move it or show the player the optimal next move!) */}
                     </div>
                 </div>
-
                 <div className="gameContainer" >
                     <Dashboard dashboard={this.state.dashboard} />
                 </div>
