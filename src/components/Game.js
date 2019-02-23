@@ -41,6 +41,8 @@ export default class Game extends Component {
         //Up arrow
         else if(event.keyCode === 38){
             console.log("up arrow 38");
+            console.log(this.state.dashboard)
+                console.log(this.reverseDashboard(this.state.dashboard))
             this.setState({
                 content: 'up',
                 dashboard: this.reverseDashboard(this.state.dashboard),
@@ -63,13 +65,13 @@ export default class Game extends Component {
                 content: 'down',
             });
         }
-    };
+    }
 
     reverseDashboard = (dashboard) => {
         for (let i = 0; i < 4; i++) {
             dashboard[i].reverse();
-          }
-          return dashboard;
+        }
+        return dashboard;
     }
 
     transposeDashboard = (dashboard) => {
@@ -78,7 +80,7 @@ export default class Game extends Component {
             for (let j = 0; j < 4; j++) {
                 auxiliar_dashboard[i][j] = dashboard[j][i];
             }
-          }
+        }
         return auxiliar_dashboard;
     }
 
@@ -110,14 +112,14 @@ export default class Game extends Component {
             let a = row[i];
             let b = row[i - 1];
             if (a === b) {
-              row[i] = a + b;
-              this.setState({
-                  score: this.state.score + row[i],
-              })
-              row[i - 1] = 0;
+                row[i] = a + b;
+                this.setState({
+                    score: this.state.score + row[i],
+                })
+                row[i - 1] = 0;
             }
-          }
-          return row;
+        }
+        return row;
     }
 
 
@@ -159,17 +161,17 @@ export default class Game extends Component {
 
     //newNumber
     newNumber = (dashboard) => {
-        console.log("New number "+this.state.dashboard);
+        console.log("New number " + this.state.dashboard);
         var cellsAvailable = [];
         var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
-              if (dashboard[i][j] === 0) {
-                cellsAvailable.push({
-                  x: i,
-                  y: j
-                });
-              }
+                if (dashboard[i][j] === 0) {
+                    cellsAvailable.push({
+                        x: i,
+                        y: j
+                    });
+                }
             }
         }
 
@@ -179,29 +181,29 @@ export default class Game extends Component {
             var auxiliar_dashboard_2 = this.state.dashboard;
             auxiliar_dashboard_2[spot.x][spot.y] = r > 0.1 ? 2 : 4;
             this.setState({
-                 dashboard: auxiliar_dashboard_2,
+                dashboard: auxiliar_dashboard_2,
             });
             auxiliar_dashboard[spot.x][spot.y] = 1;
-          }
+        }
     }
 
     comparingDashboards = (a, b) => {
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
-              if (a[i][j] !== b[i][j]) {
-                return true;
-              }
+                if (a[i][j] !== b[i][j]) {
+                    return true;
+                }
             }
-          }
-          return false;
+        }
+        return false;
     }
 
     makeCopy = (dashboard) => {
         var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
         for (let i = 0; i < 4; i++) {
-          for (let j = 0; j < 4; j++) {
-            auxiliar_dashboard[i][j] = dashboard[i][j];
-          }
+            for (let j = 0; j < 4; j++) {
+                auxiliar_dashboard[i][j] = dashboard[i][j];
+            }
         }
         return auxiliar_dashboard;
     }
