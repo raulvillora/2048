@@ -31,14 +31,22 @@ export default class Game extends Component {
             this.setState({
                 content: 'left',
             });
-            this.moveCellsLeft();
+            this.setState ({
+                dashboard: this.moveCellsLeft(this.state.dashboard),
+            });
+            
         }
         //Up arrow
-        // else if (event.keyCode === 38) {
-        //     this.setState({
-        //         content: 'up',
-        //     });
-        // }
+        else if (event.keyCode === 38) {
+            this.setState({
+                content: 'up',
+            });
+            let aux = this.transposeDashboard(this.state.dashboard);  
+            aux = this.moveCellsLeft(aux);
+            this.setState ({
+                dashboard: this.transposeDashboard(aux),
+            });
+        }
 
         //Rigth arrow
         else if (event.keyCode === 39) {
@@ -46,19 +54,27 @@ export default class Game extends Component {
             this.setState({
                 content: 'rigth',
             });
-            this.moveCellsRigth();
+            this.setState ({
+                dashboard: this.moveCellsRigth(this.state.dashboard)
+            });
+            
         }
         //Down arrow
-        // else if (event.keyCode === 40) {
-        //     this.setState({
-        //         content: 'down',
-        //     });
-        // }
+        else if (event.keyCode === 40) {
+            this.setState({
+                content: 'down',
+            });
+            let aux = this.transposeDashboard(this.state.dashboard);  
+            aux = this.moveCellsRigth(aux);
+            this.setState ({
+                dashboard: this.transposeDashboard(aux),
+            });
+        }
     }
 
     //Move all the zero to the left side of the row
-    moveCellsLeft = () => {
-        var auxDash = this.makeCopy(this.state.dashboard);
+    moveCellsLeft = (dashboard) => {
+        var auxDash = this.makeCopy(dashboard);
 
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
@@ -73,14 +89,12 @@ export default class Game extends Component {
             }
         }
         console.log(auxDash);
-        this.setState({
-            dashboard: auxDash,
-        });
+        return auxDash;
     }
 
     //Move all the zero to the left side of the row
-    moveCellsRigth = () => {
-        var auxDash = this.makeCopy(this.state.dashboard);
+    moveCellsRigth = (dashboard) => {
+        var auxDash = this.makeCopy(dashboard);
         for (let i = 3; i >= 0; i--) {
                   let current = 3;
                for (let j = 3; j >= 0; j--) {
@@ -95,9 +109,7 @@ export default class Game extends Component {
                }		
        }
         console.log(auxDash);
-        this.setState({
-            dashboard: auxDash,
-        });
+        return auxDash;
     }
 
     // reverseDashboard = (dashboard) => {
@@ -107,15 +119,15 @@ export default class Game extends Component {
     //     return dashboard;
     // }
 
-    // transposeDashboard = (dashboard) => {
-    //     var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
-    //     for (let i = 0; i < 4; i++) {
-    //         for (let j = 0; j < 4; j++) {
-    //             auxiliar_dashboard[i][j] = dashboard[j][i];
-    //         }
-    //     }
-    //     return auxiliar_dashboard;
-    // }
+    transposeDashboard = (dashboard) => {
+        var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+                auxiliar_dashboard[i][j] = dashboard[j][i];
+            }
+        }
+        return auxiliar_dashboard;
+    }
 
     //Move all the non zero cells to one direction
     // moveTo = (row) => {
