@@ -29,7 +29,7 @@ export default class Game extends Component {
             console.log("left");
             this.setState({
                 content: 'left',
-                
+
             });
 
             let aux = this.moveCellsLeft(this.state.dashboard);
@@ -135,14 +135,28 @@ export default class Game extends Component {
         return auxiliar_dashboard;
     }
 
+    differentPosition = (positionCellA, positionCellB, auxiliar_dashboard_length) => {
+        while (positionCellA === positionCellB) positionCellB = Math.floor(Math.random() * auxiliar_dashboard_length);
+        return positionCellB;
+    }
     //Restart the game
     restartGame = () => {
         var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
-        var randomNumber = Math.random(1) > 0.1 ? 2 : 4;
-        var randomNumber2 = Math.random(1) > 0.1 ? 2 : 4;
+        var randomNumber = Math.random() < 0.9 ? 2 : 4;
+        var randomNumber2 = Math.random() < 0.9 ? 2 : 4;
+        var randomPosition = Math.floor(Math.random() * auxiliar_dashboard.length);
+        var randomPosition2 = Math.floor(Math.random() * auxiliar_dashboard.length);
 
-        auxiliar_dashboard[Math.floor(Math.random() * auxiliar_dashboard.length)].splice(Math.floor(Math.random() * auxiliar_dashboard.length), 1, randomNumber);
-        auxiliar_dashboard[Math.floor(Math.random() * auxiliar_dashboard.length)].splice(Math.floor(Math.random() * auxiliar_dashboard.length), 1, randomNumber2);
+        auxiliar_dashboard[randomPosition].splice(randomPosition2, 1, randomNumber);
+
+        var randomPosition3 = Math.floor(Math.random() * auxiliar_dashboard.length);
+        var randomPosition4 = Math.floor(Math.random() * auxiliar_dashboard.length);
+
+        this.differentPosition(randomPosition, randomPosition3, auxiliar_dashboard.length);
+        this.differentPosition(randomPosition2, randomPosition4, auxiliar_dashboard.length);
+
+        auxiliar_dashboard[this.differentPosition(randomPosition, randomPosition3, auxiliar_dashboard.length)].splice(this.differentPosition(randomPosition2, randomPosition4, auxiliar_dashboard.length), 1, randomNumber2);
+
         this.setState({
             dashboard: auxiliar_dashboard,
             score: 0,
@@ -169,7 +183,7 @@ export default class Game extends Component {
     newNumber = () => {
         let auxDash = this.state.dashboard;
 
-        
+
         var cellAvailableX = [];
         var cellAvailableY = [];
 
@@ -181,44 +195,44 @@ export default class Game extends Component {
                 }
             }
         }
-        var randomPosition = Math.floor(Math.random()*cellAvailableX.length);
+        var randomPosition = Math.floor(Math.random() * cellAvailableX.length);
 
         if (cellAvailableX.length > 0) {
             var auxiliar_dashboard_2 = this.makeCopy(this.state.dashboard);
-            auxiliar_dashboard_2[cellAvailableX[randomPosition]][cellAvailableY[randomPosition]] = (Math.random(1)) > 0.1 ? 2 : 4;
+            auxiliar_dashboard_2[cellAvailableX[randomPosition]][cellAvailableY[randomPosition]] = Math.random() < 0.9 ? 2 : 4;
             this.setState({
                 dashboard: auxiliar_dashboard_2,
-            });                        
+            });
         }
-        if(this.won(this.state.dashboard)) alert("YOU HAVE WON THE GAME");
-        if(this.gameOver(this.state.dashboard)) alert("YOU HAVE LOST THE GAME");
+        if (this.won(this.state.dashboard)) alert("YOU HAVE WON THE GAME");
+        if (this.gameOver(this.state.dashboard)) alert("YOU HAVE LOST THE GAME");
     }
 
     won = (dashboard) => {
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
-              if (dashboard[i][j] === 2048) {
-               return true;
-              }
+                if (dashboard[i][j] === 2048) {
+                    return true;
+                }
             }
-          }
+        }
         return false;
     }
 
     gameOver = (dashboard) => {
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
-              if (dashboard[i][j] === 0) {
-                return false;
-              }
-              if (i !== 3 && dashboard[i][j] === dashboard[i + 1][j]) {
-                return false;
-              }
-              if (j !== 3 && dashboard[i][j] === dashboard[i][j + 1]) {
-                return false;
-              }
+                if (dashboard[i][j] === 0) {
+                    return false;
+                }
+                if (i !== 3 && dashboard[i][j] === dashboard[i + 1][j]) {
+                    return false;
+                }
+                if (j !== 3 && dashboard[i][j] === dashboard[i][j + 1]) {
+                    return false;
+                }
             }
-          }
+        }
         return true;
     }
 
