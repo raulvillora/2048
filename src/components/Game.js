@@ -192,8 +192,6 @@ export default class Game extends Component {
         if (this.gameResult()) {
             alert("GAME OVER");
         }
-
-
     }
 
     //Won the game or Game Over
@@ -208,8 +206,6 @@ export default class Game extends Component {
         }
         return true;
     }
-
-
 
     makeCopy = (dashboard) => {
         var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];

@@ -23,10 +23,10 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-          <div id="Landing Page" hidden={this.state.landingPage_hidden}>
+          <div className="headingStyle" hidden={this.state.landingPage_hidden}>
             <LandingPage handleLandingPageClick={this.handleLandingPageClick}/>
           </div>
-          <div id="Game" hidden={this.state.game_hidden}>
+          <div hidden={this.state.game_hidden}>
             <Game/>
           </div>
       </div>
