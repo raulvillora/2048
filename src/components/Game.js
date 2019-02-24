@@ -22,7 +22,7 @@ export default class Game extends Component {
     }
 
     handleKeyPress(event) {
-        
+
         //Left arrow
         if (event.keyCode === 37) {
             this.movesCombinesLeft(this.state.dashboard);
@@ -87,8 +87,8 @@ export default class Game extends Component {
         return auxDash;
     }
 
-     //Moves to the rigth, combine and moves to the rigth again
-     movesCombinesRigth = (dashboard) => {
+    //Moves to the rigth, combine and moves to the rigth again
+    movesCombinesRigth = (dashboard) => {
         dashboard = this.moveCellsRigth(dashboard);
         dashboard = this.combiningCells(dashboard);
         return this.moveCellsRigth(dashboard);
@@ -200,9 +200,7 @@ export default class Game extends Component {
     gameResult = () => {
         for (let i = 0; (i < 4); i++) {
             for (let j = 0; j < 4; j++) {
-                if (this.state.dashboard[i][j] === 2048) {
-                    alert("YOU HAVE WON THE GAME");
-                }
+                if (this.state.dashboard[i][j] === 2048) alert("YOU HAVE WON THE GAME");
                 else if ((this.state.dashboard[i][j] === 0) || (i !== 3 && this.state.dashboard[i][j] === this.state.dashboard[i + 1][j]) || (j !== 3 && this.state.dashboard[i][j] === this.state.dashboard[i][j + 1])) {
                     return false;
                 }
