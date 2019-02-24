@@ -24,68 +24,66 @@ export default class Game extends Component {
     }
 
     handleKeyPress(event) {
+        
         //Left arrow
         if (event.keyCode === 37) {
-            console.log("left");
             this.setState({
                 content: 'left',
 
             });
-
-            let aux = this.moveCellsLeft(this.state.dashboard);
-            aux = this.combiningCells(aux);
-
+ 
+            this.movesCombinesLeft(this.state.dashboard);
             this.setState({
-                dashboard: this.moveCellsLeft(aux),
+                dashboard: this.movesCombinesLeft(this.state.dashboard),
             });
             this.newNumber();
         }
+
         //Up arrow
         else if (event.keyCode === 38) {
             this.setState({
                 content: 'up',
             });
-            let aux = this.transposeDashboard(this.state.dashboard);
-            aux = this.moveCellsLeft(aux);
-            aux = this.combiningCells(aux);
-            aux = this.moveCellsLeft(aux);
-
+            let auxiliar_dashboard = this.transposeDashboard(this.state.dashboard);
+            auxiliar_dashboard = this.movesCombinesLeft(auxiliar_dashboard);
             this.setState({
-                dashboard: this.transposeDashboard(aux),
+                dashboard: this.transposeDashboard(auxiliar_dashboard),
             });
             this.newNumber();
         }
 
         //Rigth arrow
         else if (event.keyCode === 39) {
-            console.log("rigth");
             this.setState({
                 content: 'rigth',
             });
-
-            let aux = this.moveCellsRigth(this.state.dashboard);
-            aux = this.combiningCells(aux);
+            this.movesCombinesRigth(this.state.dashboard);
             this.setState({
-                dashboard: this.moveCellsRigth(aux),
+                dashboard: this.movesCombinesLeft(this.state.dashboard),
             });
             this.newNumber();
         }
+
         //Down arrow
         else if (event.keyCode === 40) {
             this.setState({
                 content: 'down',
             });
 
-            let aux = this.transposeDashboard(this.state.dashboard);
-            aux = this.moveCellsRigth(aux);
-            aux = this.combiningCells(aux);
-            aux = this.moveCellsRigth(aux);
-
+            let auxiliar_dashboard = this.transposeDashboard(this.state.dashboard);
+            auxiliar_dashboard = this.movesCombinesRigth(auxiliar_dashboard);
             this.setState({
-                dashboard: this.transposeDashboard(aux),
+                dashboard: this.transposeDashboard(auxiliar_dashboard),
             });
             this.newNumber();
         }
+    }
+
+    //Moves to the left, combine and moves to the left again
+    movesCombinesLeft = (dashboard) => {
+        dashboard = this.moveCellsLeft(dashboard);
+        dashboard = this.combiningCells(dashboard);
+        return this.moveCellsLeft(dashboard);
     }
 
     //Move all the zero to the left side of the row
@@ -104,6 +102,13 @@ export default class Game extends Component {
             }
         }
         return auxDash;
+    }
+
+     //Moves to the rigth, combine and moves to the rigth again
+     movesCombinesRigth = (dashboard) => {
+        dashboard = this.moveCellsRigth(dashboard);
+        dashboard = this.combiningCells(dashboard);
+        return this.moveCellsRigth(dashboard);
     }
 
     //Move all the zero to the left side of the row
