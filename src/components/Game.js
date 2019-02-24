@@ -116,9 +116,7 @@ export default class Game extends Component {
     transposeDashboard = (dashboard) => {
         var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
         for (let i = 0; i < 4; i++) {
-            for (let j = 0; j < 4; j++) {
-                auxiliar_dashboard[i][j] = dashboard[j][i];
-            }
+            for (let j = 0; j < 4; j++) auxiliar_dashboard[i][j] = dashboard[j][i];
         }
         return auxiliar_dashboard;
     }
@@ -131,16 +129,13 @@ export default class Game extends Component {
 
     //Restart the game
     restartGame = () => {
-        var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
-        var randomNumber = Math.random() < 0.9 ? 2 : 4;
-        var randomNumber2 = Math.random() < 0.9 ? 2 : 4;
-        var randomPosition = Math.floor(Math.random() * auxiliar_dashboard.length);
-        var randomPosition2 = Math.floor(Math.random() * auxiliar_dashboard.length);
+        var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+        var randomNumber = Math.random() < 0.9 ? 2 : 4, randomNumber2 = Math.random() < 0.9 ? 2 : 4;
+        var randomPosition = Math.floor(Math.random() * auxiliar_dashboard.length), randomPosition2 = Math.floor(Math.random() * auxiliar_dashboard.length);
 
         auxiliar_dashboard[randomPosition].splice(randomPosition2, 1, randomNumber);
 
-        var randomPosition3 = Math.floor(Math.random() * auxiliar_dashboard.length);
-        var randomPosition4 = Math.floor(Math.random() * auxiliar_dashboard.length);
+        var randomPosition3 = Math.floor(Math.random() * auxiliar_dashboard.length), randomPosition4 = Math.floor(Math.random() * auxiliar_dashboard.length);
 
         this.differentPosition(randomPosition, randomPosition3, auxiliar_dashboard.length);
         this.differentPosition(randomPosition2, randomPosition4, auxiliar_dashboard.length);
@@ -221,9 +216,7 @@ export default class Game extends Component {
     makeCopy = (dashboard) => {
         var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
         for (let i = 0; i < 4; i++) {
-            for (let j = 0; j < 4; j++) {
-                auxiliar_dashboard[i][j] = dashboard[i][j];
-            }
+            for (let j = 0; j < 4; j++) auxiliar_dashboard[i][j] = dashboard[i][j];
         }
         return auxiliar_dashboard;
     }
