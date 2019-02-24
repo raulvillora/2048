@@ -7,10 +7,8 @@ export default class Game extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            buttonClicked: false,
             dashboard: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
             score: 0,
-            content: '',
         };
         this.handleKeyPress = this.handleKeyPress.bind(this);
     }
@@ -27,11 +25,6 @@ export default class Game extends Component {
         
         //Left arrow
         if (event.keyCode === 37) {
-            this.setState({
-                content: 'left',
-
-            });
- 
             this.movesCombinesLeft(this.state.dashboard);
             this.setState({
                 dashboard: this.movesCombinesLeft(this.state.dashboard),
@@ -41,9 +34,6 @@ export default class Game extends Component {
 
         //Up arrow
         else if (event.keyCode === 38) {
-            this.setState({
-                content: 'up',
-            });
             let auxiliar_dashboard = this.transposeDashboard(this.state.dashboard);
             auxiliar_dashboard = this.movesCombinesLeft(auxiliar_dashboard);
             this.setState({
@@ -54,9 +44,6 @@ export default class Game extends Component {
 
         //Rigth arrow
         else if (event.keyCode === 39) {
-            this.setState({
-                content: 'rigth',
-            });
             this.movesCombinesRigth(this.state.dashboard);
             this.setState({
                 dashboard: this.movesCombinesLeft(this.state.dashboard),
@@ -66,10 +53,6 @@ export default class Game extends Component {
 
         //Down arrow
         else if (event.keyCode === 40) {
-            this.setState({
-                content: 'down',
-            });
-
             let auxiliar_dashboard = this.transposeDashboard(this.state.dashboard);
             auxiliar_dashboard = this.movesCombinesRigth(auxiliar_dashboard);
             this.setState({
