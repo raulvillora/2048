@@ -135,10 +135,12 @@ export default class Game extends Component {
         return auxiliar_dashboard;
     }
 
+    //Make sure the position of the cell of A and B are different
     differentPosition = (positionCellA, positionCellB, auxiliar_dashboard_length) => {
         while (positionCellA === positionCellB) positionCellB = Math.floor(Math.random() * auxiliar_dashboard_length);
         return positionCellB;
     }
+
     //Restart the game
     restartGame = () => {
         var auxiliar_dashboard = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
@@ -163,13 +165,14 @@ export default class Game extends Component {
         });
     }
 
+    //Combine cells
     combiningCells = (dashboard) => {
         for (let i = 0; i < 4; i++) {
             for (let j = 3; j >= 1; j--) {
-                let a = dashboard[i][j];
-                let b = dashboard[i][j - 1];
-                if (a === b) {
-                    dashboard[i][j] = a + b;
+                let cellA = dashboard[i][j];
+                let cellB = dashboard[i][j - 1];
+                if (cellA === cellB) {
+                    dashboard[i][j] = cellA + cellB;
                     this.setState({
                         score: this.state.score + dashboard[i][j],
                     });
@@ -180,12 +183,9 @@ export default class Game extends Component {
         return dashboard;
     }
 
+    //Add new number to the game
     newNumber = () => {
-        let auxDash = this.state.dashboard;
-
-
-        var cellAvailableX = [];
-        var cellAvailableY = [];
+        var auxDash = this.state.dashboard, cellAvailableX = [], cellAvailableY = [];
 
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
@@ -204,37 +204,30 @@ export default class Game extends Component {
                 dashboard: auxiliar_dashboard_2,
             });
         }
-        if (this.won(this.state.dashboard)) alert("YOU HAVE WON THE GAME");
-        if (this.gameOver(this.state.dashboard)) alert("YOU HAVE LOST THE GAME");
-    }
 
-    won = (dashboard) => {
-        for (let i = 0; i < 4; i++) {
-            for (let j = 0; j < 4; j++) {
-                if (dashboard[i][j] === 2048) {
-                    return true;
-                }
-            }
+        //Checking if by adding a new number the user has won or lost the game
+        if (this.gameResult()) {
+            alert("GAME OVER");
         }
-        return false;
+
+
     }
 
-    gameOver = (dashboard) => {
-        for (let i = 0; i < 4; i++) {
+    //Won the game or Game Over
+    gameResult = () => {
+        for (let i = 0; (i < 4); i++) {
             for (let j = 0; j < 4; j++) {
-                if (dashboard[i][j] === 0) {
-                    return false;
+                if (this.state.dashboard[i][j] === 2048) {
+                    alert("YOU HAVE WON THE GAME");
                 }
-                if (i !== 3 && dashboard[i][j] === dashboard[i + 1][j]) {
-                    return false;
-                }
-                if (j !== 3 && dashboard[i][j] === dashboard[i][j + 1]) {
+                else if ((this.state.dashboard[i][j] === 0) || (i !== 3 && this.state.dashboard[i][j] === this.state.dashboard[i + 1][j]) || (j !== 3 && this.state.dashboard[i][j] === this.state.dashboard[i][j + 1])) {
                     return false;
                 }
             }
         }
         return true;
     }
+
 
 
     makeCopy = (dashboard) => {
