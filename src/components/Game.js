@@ -280,10 +280,10 @@ export default class Game extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-sm">
-                        <button type="button" className="btn btn-primary" style={{ margin: '10px 10px', fontFamily: "Avenir", fontSize: '2vh' }}>HINT</button>
+                    {/* <div className="col-sm">
+                        <button type="button" className="btn btn-primary" style={{ margin: '10px 10px', fontFamily: "Avenir", fontSize: '2vh' }}>HINT</button> */}
                         {/* HERE it is need to call a function to know which is the next move and then (or move it or show the player the optimal next move!) */}
-                    </div>
+                    {/* </div> */}
                 </div>
                 <div className="gameContainer" >
                     <Dashboard dashboard={this.state.dashboard} />
