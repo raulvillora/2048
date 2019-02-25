@@ -346,15 +346,367 @@
 
 /* Small Devices, Tablets */
 
-@media only screen and (max-width: 768px) {}
+@media only screen and (max-width: 950px) {
+    .cell {
+        width: 57.5px;
+        height: 57.5px;
+        margin-right: 10px;
+        border-radius: 3px;
+        background: rgba(238, 228, 218, 0.35);
+    }
+
+    .dashboard {
+        /* position: relative; */
+        top: 5%;
+        left: 5vw;
+        width: 75vw;
+        height: 75vw;
+        background: #bbada0;
+    }
+    
+
+.n0 {
+    font-size: 40px;
+    color: #776e65;
+    background: #eee3d6;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n2 {
+    font-size: 40px;
+    color: #776e65;
+    background: #ede0c8;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n4 {
+    font-size: 40px;
+    color: #776e65;
+    background: #ede0c8;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n8 {
+    font-size: 40px;
+    color: #f9f6f2;
+    background: #f2b179;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n16 {
+    font-size: 40px;
+    color: #f9f6f2;
+    background: #f59563;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n32 {
+    font-size: 40px;
+    color: #f9f6f2;
+    background: #f67e5f;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n64 {
+    font-size: 40px;
+    color: #f9f6f2;
+    background: #f65e3b;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n128 {
+    color: #f9f6f2;
+    background: #f1d96b;
+    font-size: 22px;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n256 {
+    font-size: 22px;
+    color: #f9f6f2;
+    background: #f2cf4d;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n512 {
+    font-size: 22px;
+    color: #f9f6f2;
+    background: #e5c12b;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n1024 {
+    font-size: 16px;
+    color: #f9f6f2;
+    background: #dfba12;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n2048 {
+    font-size: 16px;
+    color: #f9f6f2;
+    background: #edc501;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+}
 
 /* Extra Small Devices, Phones */
 
-@media only screen and (max-width: 480px) {}
+@media only screen and (max-width: 480px) {
+    .cell {
+        width: 57.5px;
+        height: 57.5px;
+        margin-right: 10px;
+        border-radius: 3px;
+        background: rgba(238, 228, 218, 0.35);
+    }
+
+    .dashboard {
+        /* position: relative; */
+        top: 5%;
+        left: 5vw;
+        width: 75vw;
+        height: 75vw;
+        background: #bbada0;
+    }
+    
+
+.n0 {
+    font-size: 25px;
+    color: #776e65;
+    background: #eee3d6;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n2 {
+    font-size: 25px;
+    color: #776e65;
+    background: #ede0c8;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n4 {
+    font-size: 25px;
+    color: #776e65;
+    background: #ede0c8;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n8 {
+    font-size: 25px;
+    color: #f9f6f2;
+    background: #f2b179;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n16 {
+    font-size: 25px;
+    color: #f9f6f2;
+    background: #f59563;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n32 {
+    font-size: 25px;
+    color: #f9f6f2;
+    background: #f67e5f;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n64 {
+    font-size: 25px;
+    color: #f9f6f2;
+    background: #f65e3b;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n128 {
+    color: #f9f6f2;
+    background: #f1d96b;
+    font-size: 17px;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n256 {
+    font-size: 17px;
+    color: #f9f6f2;
+    background: #f2cf4d;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n512 {
+    font-size: 17px;
+    color: #f9f6f2;
+    background: #e5c12b;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n1024 {
+    font-size: 13px;
+    color: #f9f6f2;
+    background: #dfba12;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.n2048 {
+    font-size: 13px;
+    color: #f9f6f2;
+    background: #edc501;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+}
 
 /* Custom, iPhone Retina */
 
-@media only screen and (max-width: 320px) {}
+@media only screen and (max-width: 320px) {
+    
+}
 
 @media print,
 (-o-min-device-pixel-ratio: 5/4),
