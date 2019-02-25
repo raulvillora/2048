@@ -22,7 +22,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="App">
+       <div className="App" touch-action="manipulation">
           <div className="headingStyle" hidden={this.state.landingPage_hidden}>
             <LandingPage handleLandingPageClick={this.handleLandingPageClick}/>
           </div>
