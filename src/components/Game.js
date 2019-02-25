@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import Dashboard from "./Dashboard";
+import "./swiped-events.js";
 
 export default class Game extends Component {
 
@@ -35,19 +36,38 @@ export default class Game extends Component {
     }
 
     handleGestureLeft = () => {
-        this.handleKeyPress(37);
+        this.movesCombinesLeft(this.state.dashboard);
+        this.setState({
+            dashboard: this.movesCombinesLeft(this.state.dashboard),
+        });
+        this.newNumber();
     }
 
-    handleGestureRigth = () => {
-        this.handleKeyPress(39);
+    handleGestureRigth = (event) => {
+        this.movesCombinesRigth(this.state.dashboard);
+        this.setState({
+            dashboard: this.movesCombinesLeft(this.state.dashboard),
+        });
+        this.newNumber();
+
     }
 
-    handleGestureUp = () => {
-        this.handleKeyPress(39);
+    handleGestureUp = (event) => {
+        let auxiliar_dashboard = this.transposeDashboard(this.state.dashboard);
+        auxiliar_dashboard = this.movesCombinesLeft(auxiliar_dashboard);
+        this.setState({
+            dashboard: this.transposeDashboard(auxiliar_dashboard),
+        });
+        this.newNumber();
     }
 
-    handleGestureDown = () => {
-        this.handleKeyPress(40);
+    handleGestureDown = (event) => {
+        let auxiliar_dashboard = this.transposeDashboard(this.state.dashboard);
+        auxiliar_dashboard = this.movesCombinesRigth(auxiliar_dashboard);
+        this.setState({
+            dashboard: this.transposeDashboard(auxiliar_dashboard),
+        });
+        this.newNumber();
     }
 
     handleKeyPress(event) {
