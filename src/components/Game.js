@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import '../App.css';
 import Dashboard from "./Dashboard";
 
+const gesture = document.getElementById('modalContent');
+
 export default class Game extends Component {
 
     constructor(props) {
@@ -9,18 +11,47 @@ export default class Game extends Component {
         this.state = {
             dashboard: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
             score: 0,
+            touchstartX: 0,
+            touchstartY: 0,
+            touchendX: 0,
+            touchendY: 0,
         };
         this.handleKeyPress = this.handleKeyPress.bind(this);
+        this.handleTouchStart = this.handleTouchStart.bind(this);
+        this.handleTouchEnd = this.handleTouchEnd.bind(this);
     }
 
     componentDidMount() {
         this.restartGame();
         document.addEventListener('keydown', this.handleKeyPress);
+        gesture.addEventListener('touchstart', this.handleTouchStart);
+        gesture.addEventListener('touchend', this.handleTouchEnd);
     }
     componentWillUnmount() {
         document.removeEventListener('keydown', this.handleKeyPress);
     }
 
+    handleTouchStart(event) {
+        this.setState({
+            touchstartX: event.changedTouches[0].screenX,
+            touchstartY: event.changedTouches[0].screenY, 
+        });
+    }
+
+    handleTouchEnd(event) {
+        this.setState({
+            touchendX: event.changedTouches[0].screenX,
+            touchendY: event.changedTouches[0].screenY, 
+        });
+        this.handleGesture();
+    }
+
+    handleGesture = () => {
+        if (this.state.touchendX < this.state.touchstartX) this.handleKeyPress(37);
+        if (this.state.touchendX > this.state.touchstartX) this.handleKeyPress(39);
+        if (this.state.touchendY < this.state.touchstartY) this.handleKeyPress(38);
+        if (this.state.touchendY > this.state.touchstartY) this.handleKeyPress(40);
+    }
     handleKeyPress(event) {
 
         //Left arrow

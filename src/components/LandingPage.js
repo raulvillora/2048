@@ -5,7 +5,7 @@ export default class LandingPage extends Component {
 
     render = () => {
         return (
-            <h1 onClick={this.props.handleLandingPageClick}>
+            <h1 onClick={this.props.handleLandingPageClick} onTouchStart={this.props.handleLandingPageClick}>
                 <span>W</span>
                 <span>e</span>
                 <span>l</span>
