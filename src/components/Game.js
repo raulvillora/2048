@@ -29,6 +29,8 @@ export default class Game extends Component {
     }
     componentWillUnmount() {
         document.removeEventListener('keydown', this.handleKeyPress);
+        gesture.addEventListener('touchstart', this.handleTouchStart);
+        gesture.addEventListener('touchend', this.handleTouchEnd);
     }
 
     handleTouchStart(event) {
