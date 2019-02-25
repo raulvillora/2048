@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import '../App.css';
 import Dashboard from "./Dashboard";
 
-const gesture = document.getElementById('modalContent');
-
 export default class Game extends Component {
 
     constructor(props) {
@@ -11,49 +9,47 @@ export default class Game extends Component {
         this.state = {
             dashboard: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
             score: 0,
-            touchstartX: 0,
-            touchstartY: 0,
-            touchendX: 0,
-            touchendY: 0,
         };
         this.handleKeyPress = this.handleKeyPress.bind(this);
-        this.handleTouchStart = this.handleTouchStart.bind(this);
-        this.handleTouchEnd = this.handleTouchEnd.bind(this);
+        this.handleGestureLeft = this.handleGestureLeft.bind(this);
+        this.handleGestureRigth = this.handleGestureRigth.bind(this);
+        this.handleGestureUp = this.handleGestureUp.bind(this);
+        this.handleGestureDown = this.handleGestureDown.bind(this);
     }
 
     componentDidMount() {
         this.restartGame();
         document.addEventListener('keydown', this.handleKeyPress);
-        gesture.addEventListener('touchstart', this.handleTouchStart);
-        gesture.addEventListener('touchend', this.handleTouchEnd);
+        document.addEventListener('swiped-left', this.handleGestureLeft);
+        document.addEventListener('swiped-rigth', this.handleGestureRigth);
+        document.addEventListener('swiped-down', this.handleGestureDown);
+        document.addEventListener('swiped-up', this.handleGestureUp);
     }
+
     componentWillUnmount() {
-        document.removeEventListener('keydown', this.handleKeyPress);
-        gesture.addEventListener('touchstart', this.handleTouchStart);
-        gesture.addEventListener('touchend', this.handleTouchEnd);
+        document.addEventListener('keydown', this.handleKeyPress);
+        document.addEventListener('swiped-left', this.handleGestureLeft);
+        document.addEventListener('swiped-rigth', this.handleGestureRigth);
+        document.addEventListener('swiped-down', this.handleGestureDown);
+        document.addEventListener('swiped-up', this.handleGestureUp);
     }
 
-    handleTouchStart(event) {
-        this.setState({
-            touchstartX: event.changedTouches[0].screenX,
-            touchstartY: event.changedTouches[0].screenY, 
-        });
+    handleGestureLeft = () => {
+        this.handleKeyPress(37);
     }
 
-    handleTouchEnd(event) {
-        this.setState({
-            touchendX: event.changedTouches[0].screenX,
-            touchendY: event.changedTouches[0].screenY, 
-        });
-        this.handleGesture();
+    handleGestureRigth = () => {
+        this.handleKeyPress(39);
     }
 
-    handleGesture = () => {
-        if (this.state.touchendX < this.state.touchstartX) this.handleKeyPress(37);
-        if (this.state.touchendX > this.state.touchstartX) this.handleKeyPress(39);
-        if (this.state.touchendY < this.state.touchstartY) this.handleKeyPress(38);
-        if (this.state.touchendY > this.state.touchstartY) this.handleKeyPress(40);
+    handleGestureUp = () => {
+        this.handleKeyPress(39);
     }
+
+    handleGestureDown = () => {
+        this.handleKeyPress(40);
+    }
+
     handleKeyPress(event) {
 
         //Left arrow
