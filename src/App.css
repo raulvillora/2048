@@ -10,6 +10,8 @@
     margin: 3vh auto 4vh auto;
 }
 
+html, body {margin: 0; height: 100%; overflow: hidden}
+
 div {
     touch-action: manipulation !important;
 }
