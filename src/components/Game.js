@@ -22,7 +22,7 @@ export default class Game extends Component {
         this.restartGame();
         document.addEventListener('keydown', this.handleKeyPress);
         document.addEventListener('swiped-left', this.handleGestureLeft);
-        document.addEventListener('swiped-rigth', this.handleGestureRigth);
+        document.addEventListener('swiped-right', this.handleGestureRigth);
         document.addEventListener('swiped-down', this.handleGestureDown);
         document.addEventListener('swiped-up', this.handleGestureUp);
     }
@@ -30,7 +30,7 @@ export default class Game extends Component {
     componentWillUnmount() {
         document.addEventListener('keydown', this.handleKeyPress);
         document.addEventListener('swiped-left', this.handleGestureLeft);
-        document.addEventListener('swiped-rigth', this.handleGestureRigth);
+        document.addEventListener('swiped-right', this.handleGestureRigth);
         document.addEventListener('swiped-down', this.handleGestureDown);
         document.addEventListener('swiped-up', this.handleGestureUp);
     }
@@ -95,7 +95,7 @@ export default class Game extends Component {
         else if (event.keyCode === 39) {
             this.movesCombinesRigth(this.state.dashboard);
             this.setState({
-                dashboard: this.movesCombinesLeft(this.state.dashboard),
+                dashboard: this.movesCombinesRigth(this.state.dashboard),
             });
             this.newNumber();
         }
