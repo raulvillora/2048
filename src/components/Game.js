@@ -269,7 +269,7 @@ export default class Game extends Component {
             <div className="container">
                 <div className="row">
                     <div className="col-sm">
-                        <button type="button" className="btn btn-primary" style={{ margin: '10px 10px', fontFamily: "Avenir", fontSize: '2vh' }} onClick={this.restartGame}>
+                        <button type="button" className="btn btn-primary" style={{ margin: '10px 10px', fontFamily: "Avenir", fontSize: '2vh',  fontWeight: 'bold'  }} onClick={this.restartGame}>
                             New Game
                         </button>
                     </div>
