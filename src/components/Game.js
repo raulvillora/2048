@@ -46,7 +46,7 @@ export default class Game extends Component {
     handleGestureRigth = () => {
         this.movesCombinesRigth(this.state.dashboard);
         this.setState({
-            dashboard: this.movesCombinesLeft(this.state.dashboard),
+            dashboard: this.movesCombinesRigth(this.state.dashboard),
         });
         this.newNumber();
 
