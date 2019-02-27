@@ -256,6 +256,8 @@ button {
     justify-content: center;
     align-items: center;
     padding-bottom: 34vh;
+    margin-top: -22vh;
+    display: flex;
 }
 
 .headingStyle h1 {
@@ -273,6 +275,11 @@ button {
     text-shadow: 0 1px 0 #CCC, 0 2px 0 #CCC, 0 3px 0 #CCC, 0 4px 0 #CCC, 0 5px 0 #CCC, 0 6px 0 transparent, 0 7px 0 transparent, 0 8px 0 transparent, 0 9px 0 transparent, 0 10px 10px rgba(0, 0, 0, .4);
 }
 
+@media screen and (max-width: 450px){
+    .headingStyle h1 span {
+        font-size: 10vh;
+    }
+}
 .headingStyle h1 span:nth-child(2) {
     animation-delay: .1s;
 }
