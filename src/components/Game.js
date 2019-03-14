@@ -71,7 +71,6 @@ export default class Game extends Component {
 	handleKeyPress(event) {
 		//Left arrow
 		if (event.keyCode === 37) {
-			// this.movesCombinesLeft(this.state.dashboard);
 			this.setState({
 				dashboard: this.movesCombinesLeft(this.state.dashboard)
 			});
@@ -86,7 +85,6 @@ export default class Game extends Component {
 			this.newNumber();
 		} else if (event.keyCode === 39) {
 			//Rigth arrow
-			// this.movesCombinesRigth(this.state.dashboard);
 			this.setState({
 				dashboard: this.movesCombinesRigth(this.state.dashboard)
 			});
@@ -179,9 +177,6 @@ export default class Game extends Component {
 
 		var randomPosition3 = Math.floor(Math.random() * auxiliar_dashboard.length),
 			randomPosition4 = Math.floor(Math.random() * auxiliar_dashboard.length);
-
-		// this.differentPosition(randomPosition, randomPosition3, auxiliar_dashboard.length);
-		// this.differentPosition(randomPosition2, randomPosition4, auxiliar_dashboard.length);
 
 		auxiliar_dashboard[this.differentPosition(randomPosition, randomPosition3, auxiliar_dashboard.length)].splice(
 			this.differentPosition(randomPosition2, randomPosition4, auxiliar_dashboard.length),
