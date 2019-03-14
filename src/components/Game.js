@@ -113,8 +113,8 @@ export default class Game extends Component {
 		for (let i = 0; i < 4; i++) {
 			for (let j = 0; j < 4; j++) {
 				if (auxDash[i][j] === 0 && auxDash[i][j + 1] === 0) {
-					auxDash[i].splice(j, 2);//removes 2 elements from the index j
-					auxDash[i].splice(2, 0, 0, 0);//removes 0 elements from index 2 and adds two zeros
+					auxDash[i].splice(j, 2); //removes 2 elements from the index j
+					auxDash[i].splice(2, 0, 0, 0); //removes 0 elements from index 2 and adds two zeros
 				}
 				if (auxDash[i][j] === 0) {
 					auxDash[i].splice(j, 1);
