@@ -1,0 +1,14 @@
+version: 2
+updates:
+- package-ecosystem: docker
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "12:30"
+    timezone: Canada/Eastern
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "12:30"
+    timezone: Canada/Eastern
