@@ -1,0 +1,36 @@
+name: Check for unnecessary dependencies
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-dependencies:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Check for unused dependencies
+      run: npm prune --dry-run
+
+    - name: Check for unnecessary dependencies
+      run: |
+        if [ -z "$(npm ls --parseable --prod --depth=0)" ]; then
+          echo "No unnecessary dependencies found."
+          exit 0
+        else
+          echo "Unnecessary dependencies found:"
+          npm ls --parseable --prod --depth=0
+          exit 1
+        fi
