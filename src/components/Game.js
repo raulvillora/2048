@@ -4,18 +4,25 @@ import Dashboard from './Dashboard';
 import '../swiped-events.js';
 
 export default class Game extends Component {
+	/**
+	 * The constructor of the game component, it initializes the state and binds the event handlers 
+	 * @constructor
+	 * @param {Object} props - Properties passed down to the component
+	 */
 	constructor(props) {
 		super(props);
+		// Initializing the state
 		this.state = {
-			dashboard:  Array.from({ length: 4 }, () => Array.from({ length: 4 }, () => 0)),
+			dashboard: Array.from({ length: 4 }, () => Array.from({ length: 4 }, () => 0)),
 			score: 0
 		};
+		// Binding the event handlers
 		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.handleGestureLeft = this.handleGestureLeft.bind(this);
 		this.handleGestureRight = this.handleGestureRight.bind(this);
 		this.handleGestureUp = this.handleGestureUp.bind(this);
 		this.handleGestureDown = this.handleGestureDown.bind(this);
-	}
+	} 
 
 	componentDidMount() {
 		this.restartGame();
