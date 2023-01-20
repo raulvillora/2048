@@ -7,12 +7,12 @@ export default class Game extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			dashboard: [ [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ] ],
+			dashboard:  Array.from({ length: 4 }, () => Array.from({ length: 4 }, () => 0)),
 			score: 0
 		};
 		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.handleGestureLeft = this.handleGestureLeft.bind(this);
-		this.handleGestureRigth = this.handleGestureRigth.bind(this);
+		this.handleGestureRight = this.handleGestureRight.bind(this);
 		this.handleGestureUp = this.handleGestureUp.bind(this);
 		this.handleGestureDown = this.handleGestureDown.bind(this);
 	}
@@ -21,18 +21,19 @@ export default class Game extends Component {
 		this.restartGame();
 		document.addEventListener('keydown', this.handleKeyPress);
 		document.addEventListener('swiped-left', this.handleGestureLeft);
-		document.addEventListener('swiped-right', this.handleGestureRigth);
+		document.addEventListener('swiped-right', this.handleGestureRight);
 		document.addEventListener('swiped-down', this.handleGestureDown);
 		document.addEventListener('swiped-up', this.handleGestureUp);
-	}
-
-	componentWillUnmount() {
-		document.addEventListener('keydown', this.handleKeyPress);
-		document.addEventListener('swiped-left', this.handleGestureLeft);
-		document.addEventListener('swiped-right', this.handleGestureRigth);
-		document.addEventListener('swiped-down', this.handleGestureDown);
-		document.addEventListener('swiped-up', this.handleGestureUp);
-	}
+	  }
+	  
+	  componentWillUnmount() {
+		document.removeEventListener('keydown', this.handleKeyPress);
+		document.removeEventListener('swiped-left', this.handleGestureLeft);
+		document.removeEventListener('swiped-right', this.handleGestureRight);
+		document.removeEventListener('swiped-down', this.handleGestureDown);
+		document.removeEventListener('swiped-up', this.handleGestureUp);
+	  }
+	  
 
 	handleGestureLeft = () => {
 		// this.movesCombinesLeft(this.state.dashboard);
@@ -42,7 +43,7 @@ export default class Game extends Component {
 		this.newNumber();
 	};
 
-	handleGestureRigth = () => {
+	handleGestureRight = () => {
 		// this.movesCombinesRigth(this.state.dashboard);
 		this.setState({
 			dashboard: this.movesCombinesRigth(this.state.dashboard)
@@ -152,7 +153,7 @@ export default class Game extends Component {
 	};
 
 	transposeDashboard = (dashboard) => {
-		var auxiliar_dashboard = [ [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ] ];
+		const auxiliar_dashboard = Array.from({ length: 4 }, () => Array.from({ length: 4 }, () => 0));
 		for (let i = 0; i < 4; i++) {
 			for (let j = 0; j < 4; j++) auxiliar_dashboard[i][j] = dashboard[j][i];
 		}
@@ -165,30 +166,35 @@ export default class Game extends Component {
 		return positionCellB;
 	};
 
-	//Restart the game
+	/**
+	 * Function that resets the game state
+	 * @function
+	 * @returns {void}
+	 */
 	restartGame = () => {
-		var auxiliar_dashboard = [ [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ] ];
-		var randomNumber = Math.random() < 0.9 ? 2 : 4,
-			randomNumber2 = Math.random() < 0.9 ? 2 : 4;
-		var randomPosition = Math.floor(Math.random() * auxiliar_dashboard.length),
-			randomPosition2 = Math.floor(Math.random() * auxiliar_dashboard.length);
-
-		auxiliar_dashboard[randomPosition].splice(randomPosition2, 1, randomNumber);
-
-		var randomPosition3 = Math.floor(Math.random() * auxiliar_dashboard.length),
-			randomPosition4 = Math.floor(Math.random() * auxiliar_dashboard.length);
-
-		auxiliar_dashboard[this.differentPosition(randomPosition, randomPosition3, auxiliar_dashboard.length)].splice(
-			this.differentPosition(randomPosition2, randomPosition4, auxiliar_dashboard.length),
-			1,
-			randomNumber2
-		);
-
+		// Creating 2D array filled with 0s
+		const auxiliar_dashboard = Array.from({ length: 4 }, () => Array.from({ length: 4 }, () => 0));
+	
+		// Generating random numbers and positions
+		const [randomNumber, randomNumber2] = [Math.random() < 0.9 ? 2 : 4, Math.random() < 0.9 ? 2 : 4];
+		let [randomPosition, randomPosition2] = [Math.floor(Math.random() * auxiliar_dashboard.length), Math.floor(Math.random() * auxiliar_dashboard.length)];
+	
+		// Assigning the first random number to the first random position
+		auxiliar_dashboard[randomPosition][randomPosition2] = randomNumber;
+	
+		// Generating and assigning the second random number to a different position
+		do {
+		[randomPosition, randomPosition2] = [Math.floor(Math.random() * auxiliar_dashboard.length), Math.floor(Math.random() * auxiliar_dashboard.length)];
+		} while (auxiliar_dashboard[randomPosition][randomPosition2] !== 0);
+		auxiliar_dashboard[randomPosition][randomPosition2] = randomNumber2;
+	
+		// Updating the state
 		this.setState({
-			dashboard: auxiliar_dashboard,
-			score: 0
+		dashboard: auxiliar_dashboard,
+		score: 0,
 		});
 	};
+  
 
 	//Combine cells
 	combiningCells = (dashboard) => {
@@ -258,7 +264,7 @@ export default class Game extends Component {
 	};
 
 	makeCopy = (dashboard) => {
-		var auxiliar_dashboard = [ [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ] ];
+		const auxiliar_dashboard = Array.from({ length: 4 }, () => Array.from({ length: 4 }, () => 0));
 		for (let i = 0; i < 4; i++) {
 			for (let j = 0; j < 4; j++) auxiliar_dashboard[i][j] = dashboard[i][j];
 		}
