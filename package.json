@@ -4,9 +4,10 @@
   "private": true,
   "homepage": "https://raulvillora.github.io/2048",
   "dependencies": {
+    "@microsoft/eslint-formatter-sarif": "2.1.7",
     "arrow-keys-react": "^1.0.6",
     "bootstrap": "^4.3.1",
-    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint": "8.10.0",
     "node-pre-gyp": "^0.17.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
