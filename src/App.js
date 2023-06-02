@@ -13,7 +13,7 @@ export default function App() {
   };
 
   return (
-    <div className="App" touch-action="manipulation">
+    <div className="App">
       {!landingPageHidden && (
         <div className="headingStyle">
           <LandingPage handleLandingPageClick={handleLandingPageClick} />
