@@ -1,32 +1,25 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import LandingPage from './components/LandingPage';
 import Game from './components/Game';
 
-export default class App extends Component {
-	constructor() {
-		super();
-		this.state = {
-			landingPage_hidden: false,
-			game_hidden: true
-		};
-		this.handleLandingPageClick = this.handleLandingPageClick.bind(this);
-	}
+export default function App() {
+  const [landingPageHidden, setLandingPageHidden] = useState(false);
+  const [gameHidden, setGameHidden] = useState(true);
 
-	handleLandingPageClick() {
-		this.setState({ landingPage_hidden: true, game_hidden: false });
-	}
+  const handleLandingPageClick = () => {
+    setLandingPageHidden(true);
+    setGameHidden(false);
+  };
 
-	render() {
-		return (
-			<div className="App" touch-action="manipulation">
-				<div className="headingStyle" hidden={this.state.landingPage_hidden}>
-					<LandingPage handleLandingPageClick={this.handleLandingPageClick} />
-				</div>
-				<div hidden={this.state.game_hidden}>
-					<Game />
-				</div>
-			</div>
-		);
-	}
+  return (
+    <div className="App" touch-action="manipulation">
+      {!landingPageHidden && (
+        <div className="headingStyle">
+          <LandingPage handleLandingPageClick={handleLandingPageClick} />
+        </div>
+      )}
+      {!gameHidden && <Game />}
+    </div>
+  );
 }

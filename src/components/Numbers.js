@@ -1,17 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../App.css';
 
-export default class Numbers extends Component {
-	static defaultProps = {
-		numberName: 'n0'
-	};
+const Numbers = ({ numberName, numberNamePrint }) => {
+  if (numberNamePrint === 0) numberNamePrint = '';
 
-	render = () => {
-		var numberName = this.props.numberName,
-			numberNamePrint = this.props.numberNamePrint;
+  return <div className={numberName}>{numberNamePrint}</div>;
+};
 
-		if (numberNamePrint === 0) numberNamePrint = '';
+Numbers.defaultProps = {
+  numberName: 'n0'
+};
 
-		return <div className={numberName}>{numberNamePrint}</div>;
-	};
-}
+export default Numbers;
