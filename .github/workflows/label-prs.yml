@@ -1,0 +1,17 @@
+name: Label PRs
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Label PRs with dependencies
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: |
+            dependencies
+            automerge
