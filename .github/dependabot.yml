@@ -6,9 +6,34 @@ updates:
     interval: daily
     time: "12:30"
     timezone: Canada/Eastern
+  open-pull-requests-limit: 10
+  allow:
+    - dependency-type: "all"
+  commit-message:
+    prefix: "chore(deps)"
+  labels:
+    - "dependencies"
+    - "docker"
+    - "automerge"
+  ignore:
+    - dependency-name: "*"
+      update-types: ["version-update:semver-major"]
 - package-ecosystem: npm
   directory: "/"
   schedule:
     interval: daily
     time: "12:30"
     timezone: Canada/Eastern
+  open-pull-requests-limit: 10
+  allow:
+    - dependency-type: "all"
+  commit-message:
+    prefix: "chore(deps)"
+  labels:
+    - "dependencies"
+    - "npm"
+    - "automerge"
+  ignore:
+    - dependency-name: "*"
+      update-types: ["version-update:semver-major"]
+  security-updates: true
