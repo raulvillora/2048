@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import './App.css';
-import LandingPage from './components/LandingPage';
-import Game from './components/Game';
+import React, { useState } from "react";
+import "./App.css";
+import LandingPage from "./components/LandingPage";
+import Game from "./components/Game";
 
 export default function App() {
   const [landingPageHidden, setLandingPageHidden] = useState(false);
@@ -13,7 +13,7 @@ export default function App() {
   };
 
   return (
-    <div className="App" touch-action="manipulation">
+    <div className="App" style={{ touchAction: "manipulation" }}>
       {!landingPageHidden && (
         <div className="headingStyle">
           <LandingPage handleLandingPageClick={handleLandingPageClick} />
