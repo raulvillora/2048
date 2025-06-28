@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
 import Dashboard from './Dashboard';
-import '../swiped-events.js';
 
 export default class Game extends Component {
 	constructor(props) {
